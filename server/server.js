@@ -64,7 +64,11 @@ app.post("/login.json", (req, res) => {
             res.json({ success: false });
         });
 });
-
+//LOGOUT================
+app.get("/logout",(req,res)=>{
+    req.session =null
+    res.redirect("/")
+})
 //WELCOME===============
 app.get("/user/id.json", function (req, res) {
     //this i turn one once i have the middleware cookie.session

@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import Welcome from "./welcome";
+import Home from "./home";
 
 fetch("/user/id.json")
     .then((response) => response.json())
@@ -8,7 +9,7 @@ fetch("/user/id.json")
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
             ReactDOM.render(
-                <img className="home-img" src="/logo.png" alt="logo" />,
+                <Home />,
                 document.querySelector("main")
             );
         }

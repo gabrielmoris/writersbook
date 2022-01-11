@@ -85,3 +85,8 @@ button:active {
     border: solid 2px black;
     border-radius: 7px;
 }
+
+/* LOGO FROM MAIN */
+.big-logo {
+    padding-top: 50px;
+}
