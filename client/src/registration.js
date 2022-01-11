@@ -16,14 +16,14 @@ export class Registration extends Component {
     }
 
     handleChange({ target }) {
-        console.log(("evt", target.value));
+        // console.log(("evt", target.value));
         //to update the state I use this.setState and pass it to an object with our state changes
         this.setState(
             {
                 [target.name]: target.value,
             },
             () => {
-                console.log("handle change uplade done", this.state);
+                // console.log("handle change uplade done", this.state);
             }
         );
     }
@@ -40,7 +40,7 @@ export class Registration extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /register.json", data.success);
+                // console.log("response data from /register.json", data.success);
                 if (data.success === true) {
                     location.reload();
                 }else{

@@ -44,13 +44,7 @@ export class ResetPassword extends Component {
                             onChange={this.handleChange}
                         ></input>
                     </form>
-                    <button
-                        onClick={() =>
-                            this.setState({ stage: this.state.stage + 1 })
-                        }
-                    >
-                        Next
-                    </button>
+                    <button onClick={this.resetSecond}>Next</button>
                 </>
             );
         } else if (this.state.stage === 3) {
@@ -65,7 +59,7 @@ export class ResetPassword extends Component {
     }
 
     handleChange({ target }) {
-        console.log(("evt", target.value));
+        // console.log(("evt", target.value));
         //to update the state I use this.setState and pass it to an object with our state changes
         this.setState(
             {
@@ -88,7 +82,7 @@ export class ResetPassword extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /reset-password/start", data);
+                // console.log("response data from /reset-password/start", data);
                 if (data.success === true) {
                     this.setState({ stage: this.state.stage + 1 }); //maybe i send this from server
                 }

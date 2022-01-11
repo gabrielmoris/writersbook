@@ -71,42 +71,57 @@ app.post("/login.json", (req, res) => {
 
 app.post("/reset-password/start", (req, res) => {
     const data = req.body;
-    // console.log("req.body is:",data)
-    db.getUser(data.email).then(({ rows }) => {
-        // console.log("result from database",rows)
-        return rows[0];
-    }).then((results) =>{
-        if (results.email) {
-            db.checkFromReset(results.email)
-                .then(({ rows }) => {
-                    return rows[0];
-                })
-                .then((results2) => {
-                    if (results2) {
-                        const code = cryptoRandomString({
-                            length: 6,
-                        });
-                        db.updateCode(code, results2.email);
-                        sendEmail(results2.email,"This is your code",code);
-                        res.json({ success: true });
-                    } else {
-                        const code = cryptoRandomString({
-                            length: 6,
-                        });;
-                        db.createFirstCode(code, results.email);
-                        sendEmail(results.email, "This is your code", code);
-                        res.json({ success: true });
-                    }
-                });
-        } 
-    }).catch((err)=>{console.log("error sending code",err)})
+
+    db.getUser(data.email)
+        .then(({ rows }) => {
+            return rows[0];
+        })
+        .then((results) => {
+            if (results.email) {
+                db.checkFromReset(results.email)
+                    .then(({ rows }) => {
+                        return rows[0];
+                    })
+                    .then((results2) => {
+                        if (results2) {
+                            const code = cryptoRandomString({
+                                length: 6,
+                            });
+                            db.updateCode(code, results2.email);
+                            sendEmail(
+                                results2.email,
+                                "This is your code",
+                                `Please, paste this code in the required input: ${code}`
+                            );
+                            res.json({ success: true });
+                        } else {
+                            const code = cryptoRandomString({
+                                length: 6,
+                            });
+                            db.createFirstCode(code, results.email);
+                            sendEmail(results.email, "This is your code", code);
+                            res.json({ success: true });
+                        }
+                    });
+            }
+        })
+        .catch((err) => {
+            console.log("error sending code", err);
+        });
 });
 
 app.post("/reset-password/confirm", (req, res) => {
-    //    en server     POST "/reset-password/confirm"
-    // expect the email address, the recovery code, and the new password
-    // Check a corresponding valid code is available.
-    // Hash the new password, update the users table with the new hash, and send a response indicating success.
+    const data = req.body;
+    db.checkCode(data.email).then(({rows}) => {
+        console.log("RESPONSE IN RESET CONFIRM",rows[0]);
+        if(data.code===rows[0].code){
+            hash(data.password)
+        .then((hashedPw) => {
+            db.updatePassword(hashedPw,data.email).then(()=>{
+                res.json({ success: true });
+            })})
+        }
+    });
 });
 
 //LOGOUT================

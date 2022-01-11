@@ -49,7 +49,7 @@ module.exports.checkCode = (email) => {
     return db.query(q, params);
 };
 
-module.exports.updatePAssword = (password, email) => {
+module.exports.updatePassword = (password, email) => {
     const q = `UPDATE users SET password=$1 WHERE email = $2`;
     const params = [password, email];
     return db.query(q, params);
