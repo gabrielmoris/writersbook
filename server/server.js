@@ -5,6 +5,8 @@ const path = require("path");
 const db = require("./db.js");
 const cookieSession = require("cookie-session");
 const { hash, compare } = require("./bcrypt");
+const { sendEmail } = require("./ses.js");
+const cryptoRandomString = require("crypto-random-string");
 
 //======MIDDLEWARE======
 app.use(compression());
@@ -64,11 +66,54 @@ app.post("/login.json", (req, res) => {
             res.json({ success: false });
         });
 });
+
+//RESET PASSWORD========
+
+app.post("/reset-password/start", (req, res) => {
+    const data = req.body;
+    // console.log("req.body is:",data)
+    db.getUser(data.email).then(({ rows }) => {
+        // console.log("result from database",rows)
+        return rows[0];
+    }).then((results) =>{
+        if (results.email) {
+            db.checkFromReset(results.email)
+                .then(({ rows }) => {
+                    return rows[0];
+                })
+                .then((results2) => {
+                    if (results2) {
+                        const code = cryptoRandomString({
+                            length: 6,
+                        });
+                        db.updateCode(code, results2.email);
+                        sendEmail(results2.email,"This is your code",code);
+                        res.json({ success: true });
+                    } else {
+                        const code = cryptoRandomString({
+                            length: 6,
+                        });;
+                        db.createFirstCode(code, results.email);
+                        sendEmail(results.email, "This is your code", code);
+                        res.json({ success: true });
+                    }
+                });
+        } 
+    }).catch((err)=>{console.log("error sending code",err)})
+});
+
+app.post("/reset-password/confirm", (req, res) => {
+    //    en server     POST "/reset-password/confirm"
+    // expect the email address, the recovery code, and the new password
+    // Check a corresponding valid code is available.
+    // Hash the new password, update the users table with the new hash, and send a response indicating success.
+});
+
 //LOGOUT================
-app.get("/logout",(req,res)=>{
-    req.session =null
-    res.redirect("/")
-})
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+});
 //WELCOME===============
 app.get("/user/id.json", function (req, res) {
     //this i turn one once i have the middleware cookie.session

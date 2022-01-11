@@ -50,7 +50,6 @@ a:hover {
 }
 
 a:active {
-    color: black;
     border-width: 1px 1px 1px 1px;
     color: antiquewhite;
 }
@@ -103,4 +102,21 @@ button:active {
 /* LOGO FROM MAIN */
 .big-logo {
     padding-top: 50px;
+}
+
+.reset-password {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-decoration: none;
+    border-bottom: none;
+    border-right: none;
+    background-color: antiquewhite;
+}
+
+.reset-password:hover {
+    margin: 0 2px 2px 50px;
+    border-width: 2px 0 0 2px;
+    background-color: antiquewhite;
+    color: black;
 }

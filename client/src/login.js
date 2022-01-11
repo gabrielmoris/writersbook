@@ -60,7 +60,7 @@ export class Login extends Component {
             <>
                 {this.state.error && (
                     <h2 style={{ color: "red" }}>{this.state.error}</h2>
-                )}
+                    )}
                 <form>
                     <h1>Login:</h1>
                     <input
@@ -78,6 +78,7 @@ export class Login extends Component {
                     <button onClick={this.handleSubmit}>Login</button>
                     <Link to="/">Click here to register!</Link>
                 </form>
+                <Link className="reset-password" to="/reset-password">Forgot your password?</Link>
             </>
         );
     }
