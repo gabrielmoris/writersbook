@@ -1,7 +1,14 @@
 body {
     background-color: antiquewhite;
+    font-family: "Cookie", cursive;
+    font-size: 25px;
 }
 
+h1 {
+    font-family: "Fredericka the Great", cursive;
+    font-size: 50px;
+    font-weight: lighter;
+}
 main {
     display: grid;
     grid-template-columns: 1fr;
@@ -36,6 +43,7 @@ a {
 }
 
 a:hover {
+    margin: 0 2px 2px 50px;
     border-width: 2px 0 0 2px;
     background-color: black;
     color: antiquewhite;
@@ -44,15 +52,7 @@ a:hover {
 a:active {
     color: black;
     border-width: 1px 1px 1px 1px;
-}
-
-button {
-    /* border: solid 2px black;
-    border-radius: 7px; */
-    outline: 0;
-    border-width: 0 2px 2px 0;
-    border-color: black;
-    background-color: antiquewhite;
+    color: antiquewhite;
 }
 
 form {
@@ -60,7 +60,20 @@ form {
     text-align: center;
 }
 
+button {
+    /* border: solid 2px black;
+    border-radius: 7px; */
+    margin: 2px 0 0 2px;
+    outline: 0;
+    border-width: 0 2px 2px 0;
+    border-color: black;
+    background-color: antiquewhite;
+    font-family: "Cookie", cursive;
+    font-size: 25px;
+}
+
 button:hover {
+    margin: 0 2px 2px 0;
     border-width: 2px 0 0 2px;
     background-color: black;
     color: antiquewhite;
@@ -68,6 +81,7 @@ button:hover {
 
 button:active {
     border-width: 1px 1px 1px 1px;
+    color: antiquewhite;
 }
 
 .logo {
