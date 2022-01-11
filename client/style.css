@@ -2,17 +2,86 @@ body {
     background-color: antiquewhite;
 }
 
-header{
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+header {
     text-align: center;
-    text-justify:center;
+    text-justify: center;
+}
+
+input {
+    margin-bottom: 30px;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: black;
+    background-color: antiquewhite;
+    display: block;
+    width: 250px;
+    height: 30px;
+}
+
+a {
+    color: black;
+    margin-left: 50px;
+    text-decoration: none;
+    border-bottom: solid black 2px;
+    border-right: solid black 2px;
+    background-color: antiquewhite;
+}
+
+a:hover {
+    border-width: 2px 0 0 2px;
+    background-color: black;
+    color: antiquewhite;
+}
+
+a:active {
+    color: black;
+    border-width: 1px 1px 1px 1px;
+}
+
+button {
+    /* border: solid 2px black;
+    border-radius: 7px; */
+    outline: 0;
+    border-width: 0 2px 2px 0;
+    border-color: black;
+    background-color: antiquewhite;
+}
+
+form {
+    margin-top: 150px;
+    text-align: center;
+}
+
+button:hover {
+    border-width: 2px 0 0 2px;
+    background-color: black;
+    color: antiquewhite;
+}
+
+button:active {
+    border-width: 1px 1px 1px 1px;
 }
 
 .logo {
     display: inline;
     width: 50px;
     margin-right: 20px;
+    border-radius: 7px;
 }
 
 .welcome {
     display: inline;
+}
+
+.home-img {
+    border: solid 2px black;
+    border-radius: 7px;
 }

@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 
-export class Registration extends Component {
+export class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,7 +12,7 @@ export class Registration extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        console.log("Registration mounted");
+        console.log("Login mounted");
     }
 
     handleChange({ target }) {
@@ -31,7 +31,7 @@ export class Registration extends Component {
     handleSubmit(e) {
         e.preventDefault();
         // console.log("user wants to submit",this.state)
-        fetch("/register.json", {
+        fetch("/login.json", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -40,17 +40,17 @@ export class Registration extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /register.json", data.success);
+                console.log("response data from /login.json", data.success);
                 if (data.success === true) {
                     location.reload();
-                }else{
+                } else {
                     this.setState({ error: "Something went wrong." });
                 }
             })
             .catch((err) => {
-                console.log("Err in fetcch /register.json", err);
+                console.log("Err in fetcch /login.json", err);
                 if (data.success === false) {
-                     this.setState({error:"Something went wrong."})
+                    this.setState({ error: "Something went wrong." });
                 }
             });
     }
@@ -62,19 +62,7 @@ export class Registration extends Component {
                     <h2 style={{ color: "red" }}>{this.state.error}</h2>
                 )}
                 <form>
-                    <h1>Register:</h1>
-                    <input
-                        name="first"
-                        placeholder="First Name"
-                        type="text"
-                        onChange={this.handleChange}
-                    ></input>
-                    <input
-                        name="last"
-                        placeholder="Last Name"
-                        type="text"
-                        onChange={this.handleChange}
-                    ></input>
+                    <h1>Login:</h1>
                     <input
                         name="email"
                         placeholder="your@email.com"
@@ -87,8 +75,8 @@ export class Registration extends Component {
                         type="password"
                         onChange={this.handleChange}
                     ></input>
-                    <button onClick={this.handleSubmit}>Register</button>
-                    <Link to="/login">Click here to Log in!</Link>
+                    <button onClick={this.handleSubmit}>Login</button>
+                    <Link to="/">Click here to register!</Link>
                 </form>
             </>
         );

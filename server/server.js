@@ -18,9 +18,9 @@ app.use(
     })
 );
 
-//=====SERVER REQUESTS=====
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
-
+//=====SERVER REQUESTS=====
+//REGISTER=================
 app.post("/register.json", (req, res) => {
     // console.log("from the server side", req.body);
     hash(req.body.password)
@@ -29,7 +29,7 @@ app.post("/register.json", (req, res) => {
                 .then((row) => {
                     // console.log(row)
                     req.session.userId = row.rows[0].id;
-                    res.json({success:true})
+                    res.json({ success: true });
                 })
                 .catch((err) => {
                     console.log("Error ading User: ", err);
@@ -41,7 +41,31 @@ app.post("/register.json", (req, res) => {
             res.json({ success: false });
         });
 });
+//LOGIN=================
+app.post("/login.json", (req, res) => {
+    const data = req.body;
 
+    db.getUser(data.email)
+        .then(({ rows }) => {
+            return rows[0];
+        })
+        .then((results) =>
+            compare(data.password, results.password).then((match) => {
+                if (match === true) {
+                    req.session.userId = results.id;
+                    res.json({ success: true });
+                } else {
+                    res.json({ success: false });
+                }
+            })
+        )
+        .catch((err) => {
+            console.log("Error login User: ", err);
+            res.json({ success: false });
+        });
+});
+
+//WELCOME===============
 app.get("/user/id.json", function (req, res) {
     //this i turn one once i have the middleware cookie.session
     res.json({

@@ -23,3 +23,10 @@ module.exports.addUser = (
     const params = [userName, userLastName, userEmail, userPasword];
     return db.query(q, params);
 };
+
+module.exports.getUser = (email) => {
+    const q =
+        "SELECT email, password, id FROM users WHERE email = $1";
+    const params = [email];
+    return db.query(q, params);
+};

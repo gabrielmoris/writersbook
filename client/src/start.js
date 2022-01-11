@@ -8,7 +8,7 @@ fetch("/user/id.json")
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
             ReactDOM.render(
-                <img src="/logo.png" alt="logo" />,
+                <img className="home-img" src="/logo.png" alt="logo" />,
                 document.querySelector("main")
             );
         }
