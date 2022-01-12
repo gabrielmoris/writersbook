@@ -7,6 +7,8 @@ const cookieSession = require("cookie-session");
 const { hash, compare } = require("./bcrypt");
 const { sendEmail } = require("./ses.js");
 const cryptoRandomString = require("crypto-random-string");
+const { uploader } = require("./uploader.js");
+const s3 = require("./s3");
 
 //======MIDDLEWARE======
 app.use(compression());
@@ -112,14 +114,14 @@ app.post("/reset-password/start", (req, res) => {
 
 app.post("/reset-password/confirm", (req, res) => {
     const data = req.body;
-    db.checkCode(data.email).then(({rows}) => {
-        console.log("RESPONSE IN RESET CONFIRM",rows[0]);
-        if(data.code===rows[0].code){
-            hash(data.password)
-        .then((hashedPw) => {
-            db.updatePassword(hashedPw,data.email).then(()=>{
-                res.json({ success: true });
-            })})
+    db.checkCode(data.email).then(({ rows }) => {
+        console.log("RESPONSE IN RESET CONFIRM", rows[0]);
+        if (data.code === rows[0].code) {
+            hash(data.password).then((hashedPw) => {
+                db.updatePassword(hashedPw, data.email).then(() => {
+                    res.json({ success: true });
+                });
+            });
         }
     });
 });
@@ -129,6 +131,33 @@ app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
 });
+
+// UPLOAD===============
+
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
+    if (req.file) {
+        const url =
+            "https://onionimageboard.s3.amazonaws.com/" + req.file.filename;
+        db.updateImage(url, req.session.userId).then(({ rows }) => {
+            res.json({ success: true, img: rows[0] });
+        });
+    } else {
+        res.json({ success: false });
+    }
+});
+
+//MOUNT=================
+
+app.get("/appmount", (req, res) => {
+    db.getUserById(req.session.userId)
+        .then(({rows}) => {
+            res.json(rows[0]);
+        })
+        .catch((e) => {
+            console.log("Error in server /appmount", e);
+        });
+});
+
 //WELCOME===============
 app.get("/user/id.json", function (req, res) {
     //this i turn one once i have the middleware cookie.session

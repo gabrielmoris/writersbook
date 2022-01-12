@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import Welcome from "./welcome";
-import Home from "./home";
+import App from "./app";
 
 fetch("/user/id.json")
     .then((response) => response.json())
@@ -9,7 +9,7 @@ fetch("/user/id.json")
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
             ReactDOM.render(
-                <Home />,
+                <App />,
                 document.querySelector("main")
             );
         }

@@ -20,7 +20,7 @@ module.exports.addUser = (userName, userLastName, userEmail, userPasword) => {
 };
 
 module.exports.getUser = (email) => {
-    const q = "SELECT email, password, id FROM users WHERE email = $1";
+    const q = "SELECT * FROM users WHERE email = $1";
     const params = [email];
     return db.query(q, params);
 };
@@ -52,5 +52,18 @@ module.exports.checkCode = (email) => {
 module.exports.updatePassword = (password, email) => {
     const q = `UPDATE users SET password=$1 WHERE email = $2`;
     const params = [password, email];
+    return db.query(q, params);
+};
+
+
+module.exports.getUserById = (id) => {
+    const q = "SELECT * FROM users WHERE id = $1";
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.updateImage = (url, id) => {
+    const q = `UPDATE users SET url=$1 WHERE id = $2`;
+    const params = [url, id];
     return db.query(q, params);
 };

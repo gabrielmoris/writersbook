@@ -1,26 +1,23 @@
 import { Component } from "react";
-import { Link } from "react-router-dom";
 
-export class Login extends Component {
+export default class uploader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // error: "", this would be added automatically
+            
         };
         //I can turn in the render this in arrow functions, but this way is better for the performance.
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    componentDidMount() {
-        console.log("Login mounted");
-    }
 
     handleChange({ target }) {
-        // console.log(("evt", target.value));
+        console.log(("evt", target.files[0]));
+
         //to update the state I use this.setState and pass it to an object with our state changes
         this.setState(
             {
-                [target.name]: target.value,
+                [target.name]: target.files[0],
             },
             () => {
                 // console.log("handle change uplade done", this.state);
@@ -30,13 +27,11 @@ export class Login extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // console.log("user wants to submit",this.state)
-        fetch("/login.json", {
+        const fd = new FormData();
+        fd.append("file", this.state.file);
+        fetch("/upload", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(this.state),
+            body: fd,
         })
             .then((data) => data.json())
             .then((data) => {
@@ -49,7 +44,6 @@ export class Login extends Component {
             })
             .catch((err) => {
                 console.log("Err in fetcch /login.json", err);
-                this.setState({ error: "Something went wrong." });
             });
     }
 
@@ -60,25 +54,15 @@ export class Login extends Component {
                     <h2 style={{ color: "red" }}>{this.state.error}</h2>
                 )}
                 <form>
-                    <h1>Login:</h1>
+                    <h2>Upload your picture!</h2>
                     <input
-                        name="email"
-                        placeholder="your@email.com"
-                        type="email"
+                        type="file"
+                        name="file"
+                        accept="image/*"
                         onChange={this.handleChange}
                     ></input>
-                    <input
-                        name="password"
-                        placeholder="Password"
-                        type="password"
-                        onChange={this.handleChange}
-                    ></input>
-                    <button onClick={this.handleSubmit}>Login</button>
-                    <Link to="/">Click here to register!</Link>
+                    <button onClick={this.handleSubmit}>UPLOAD</button>
                 </form>
-                <Link className="reset-password" to="/reset-password">
-                    Forgot your password?
-                </Link>
             </>
         );
     }

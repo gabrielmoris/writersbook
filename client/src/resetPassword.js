@@ -102,7 +102,7 @@ export class ResetPassword extends Component {
             .then((data) => {
                 console.log("response data from /reset-password/confirm", data);
                 if (data.success === true) {
-                    this.setState({ stage: this.state.stage + 1 }); //maybe i send this from server
+                    this.setState({ stage: this.state.stage + 1 });
                 }
             });
     }

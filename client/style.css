@@ -2,24 +2,30 @@ body {
     background-color: antiquewhite;
     font-family: "Cookie", cursive;
     font-size: 25px;
+    text-align: center;
 }
 
 h1 {
     font-family: "Fredericka the Great", cursive;
     font-size: 50px;
     font-weight: lighter;
+    margin-top: 0;
 }
 main {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 90px 200px 20% 1fr;
     justify-items: center;
     align-items: center;
 }
 
 header {
+    width: 90%;
+    height: 50px;
     text-align: center;
-    text-justify: center;
+    /* text-justify: center; */
+    display: flex;
+    justify-content: space-between;
 }
 
 input {
@@ -85,7 +91,8 @@ button:active {
 
 .logo {
     display: inline;
-    width: 50px;
+    height: 80px;
+    width: 80px;
     margin-right: 20px;
     border-radius: 7px;
 }
@@ -94,19 +101,9 @@ button:active {
     display: inline;
 }
 
-.home-img {
-    border: solid 2px black;
-    border-radius: 7px;
-}
-
-/* LOGO FROM MAIN */
-.big-logo {
-    padding-top: 50px;
-}
-
 .reset-password {
     position: absolute;
-    top: 20px;
+    top: 100px;
     right: 20px;
     text-decoration: none;
     border-bottom: none;
@@ -119,4 +116,16 @@ button:active {
     border-width: 2px 0 0 2px;
     background-color: antiquewhite;
     color: black;
+}
+
+.profile-pic {
+    margin: 80px 20px 50px 20px;
+    height: 200px;
+    width: auto;
+    border-radius: 150px;
+    cursor: pointer;
+}
+
+.logout {
+    height: 30px;
 }
