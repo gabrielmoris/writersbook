@@ -139,11 +139,21 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         const url =
             "https://onionimageboard.s3.amazonaws.com/" + req.file.filename;
         db.updateImage(url, req.session.userId).then(({ rows }) => {
-            res.json({ success: true, img: rows[0] });
+            res.json({ success: true, img: rows[0].url });
+            console.log(rows);
         });
     } else {
         res.json({ success: false });
     }
+});
+
+app.post("/update-bio",(req,res)=>{
+    const data = req.body;
+    console.log(data.textarea);
+    db.updateBio(data.textarea, req.session.userId).then(({ rows }) => {
+        res.json({ success: true, bio: rows[0].bio });
+        console.log(rows);
+    });
 });
 
 //MOUNT=================

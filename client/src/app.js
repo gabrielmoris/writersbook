@@ -1,6 +1,8 @@
 import { Component } from "react";
 import ProfilePic from "./profilePic";
 import Uploader from "./uploaderComponent";
+import Profile from "./profile";
+// import Profile from "./profile";
 
 export default class App extends Component {
     constructor() {
@@ -9,23 +11,35 @@ export default class App extends Component {
             uploaderIsVisible: false,
         };
         this.togglerUploader = this.togglerUploader.bind(this);
+        this.updateImgUrl = this.updateImgUrl.bind(this);
+        this.renderBio = this.renderBio.bind(this);
     }
 
     componentDidMount() {
-        fetch("/appmount").then((answer)=>{
-            return answer.json();
-        }).then((data)=>{
-            this.setState({
-                email: data.email,
-                first: data.first,
-                last: data.last,
-                id: data.id,
-                url: data.url,
+        fetch("/appmount")
+            .then((answer) => {
+                return answer.json();
+            })
+            .then((data) => {
+                this.setState({
+                    email: data.email,
+                    first: data.first,
+                    last: data.last,
+                    id: data.id,
+                    url: data.url,
+                    bio: data.bio,
+                });
             });
-        });
         //make fetch request to get data for currently loger in user
         //and store this data un the component state
+    }
 
+    updateImgUrl(url){
+        this.setState({url:url});
+    }
+
+    renderBio(newBio){
+        this.setState({bio:newBio});
     }
 
     togglerUploader() {
@@ -34,26 +48,38 @@ export default class App extends Component {
         });
     }
 
-
     render() {
         return (
             <>
                 <header>
                     <img className="logo" src="/logo.png" alt="logo" />
                     <h1 className="welcome">Writersbook</h1>
-                    <a className="logout" href="/logout">
-                        Logout
-                    </a>
+                    <ProfilePic
+                        first={this.state.first}
+                        last={this.state.last}
+                        imageUrl={this.state.url}
+                        toggler={this.togglerUploader}
+                    />
                 </header>
-                <ProfilePic
+                <Profile
                     first={this.state.first}
                     last={this.state.last}
                     imageUrl={this.state.url}
                     toggler={this.togglerUploader}
+                    bio={this.state.bio}
+                    renderbio={this.renderBio}
                 />
-                {this.state.uploaderIsVisible && <Uploader />}
+                <a className="logout" href="/logout">
+                    Logout
+                </a>
+
+                {this.state.uploaderIsVisible && (
+                    <Uploader
+                        updater={this.updateImgUrl}
+                        toggler={this.togglerUploader}
+                    />
+                )}
             </>
         );
     }
 }
-

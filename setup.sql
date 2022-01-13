@@ -7,7 +7,8 @@ CREATE TABLE users(
       last VARCHAR(255) NOT NULL CHECK (last != ''),
       email VARCHAR(255) NOT NULL UNIQUE CHECK (email != ''),
       password VARCHAR(255) NOT NULL CHECK (password != ''),
-      url VARCHAR(255),
+      url VARCHAR,
+      bio VARCHAR,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 

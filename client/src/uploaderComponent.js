@@ -3,9 +3,7 @@ import { Component } from "react";
 export default class uploader extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            
-        };
+        this.state = {};
         //I can turn in the render this in arrow functions, but this way is better for the performance.
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -13,8 +11,6 @@ export default class uploader extends Component {
 
     handleChange({ target }) {
         console.log(("evt", target.files[0]));
-
-        //to update the state I use this.setState and pass it to an object with our state changes
         this.setState(
             {
                 [target.name]: target.files[0],
@@ -35,9 +31,9 @@ export default class uploader extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                // console.log("response data from /login.json", data.success);
                 if (data.success === true) {
-                    location.reload();
+                    this.props.updater(data.img);
+                    this.props.toggler();
                 } else {
                     this.setState({ error: "Something went wrong." });
                 }
@@ -50,12 +46,14 @@ export default class uploader extends Component {
     render() {
         return (
             <>
+                <div></div>
                 {this.state.error && (
                     <h2 style={{ color: "red" }}>{this.state.error}</h2>
                 )}
-                <form>
+                <form className="uploader">
                     <h2>Upload your picture!</h2>
                     <input
+                        className="uploader-input"
                         type="file"
                         name="file"
                         accept="image/*"

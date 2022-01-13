@@ -63,7 +63,13 @@ module.exports.getUserById = (id) => {
 };
 
 module.exports.updateImage = (url, id) => {
-    const q = `UPDATE users SET url=$1 WHERE id = $2`;
+    const q = `UPDATE users SET url=$1 WHERE id = $2 RETURNING url`;
     const params = [url, id];
+    return db.query(q, params);
+};
+
+module.exports.updateBio = (bio, id) => {
+    const q = `UPDATE users SET bio=$1 WHERE id = $2 RETURNING bio`;
+    const params = [bio, id];
     return db.query(q, params);
 };
