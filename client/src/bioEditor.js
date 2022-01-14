@@ -13,7 +13,7 @@ export default class BioEditor extends Component {
     }
 
     componentDidMount() {
-        console.log("props in bioeditor", this.props);
+        // console.log("props in bioeditor", this.props);
     }
 
     togglerBio() {

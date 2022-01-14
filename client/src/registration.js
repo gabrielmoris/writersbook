@@ -12,7 +12,7 @@ export class Registration extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        console.log("Registration mounted");
+        // console.log("Registration mounted");
     }
 
     handleChange({ target }) {
@@ -43,15 +43,13 @@ export class Registration extends Component {
                 // console.log("response data from /register.json", data.success);
                 if (data.success === true) {
                     location.reload();
-                }else{
+                } else {
                     this.setState({ error: "Something went wrong." });
                 }
             })
             .catch((err) => {
                 console.log("Err in fetcch /register.json", err);
-                if (data.success === false) {
-                     this.setState({error:"Something went wrong."})
-                }
+                this.setState({ error: "Something went wrong." });
             });
     }
 

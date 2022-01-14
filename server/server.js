@@ -115,7 +115,6 @@ app.post("/reset-password/start", (req, res) => {
 app.post("/reset-password/confirm", (req, res) => {
     const data = req.body;
     db.checkCode(data.email).then(({ rows }) => {
-        console.log("RESPONSE IN RESET CONFIRM", rows[0]);
         if (data.code === rows[0].code) {
             hash(data.password).then((hashedPw) => {
                 db.updatePassword(hashedPw, data.email).then(() => {
@@ -138,32 +137,45 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     if (req.file) {
         const url =
             "https://onionimageboard.s3.amazonaws.com/" + req.file.filename;
-        db.updateImage(url, req.session.userId).then(({ rows }) => {
-            res.json({ success: true, img: rows[0].url });
-            console.log(rows);
-        }).catch((e)=>{
-            console.log("error uploading pic", e);
-            res.json({ success: false });
-        });
+        db.updateImage(url, req.session.userId)
+            .then(({ rows }) => {
+                res.json({ success: true, img: rows[0].url });
+                console.log(rows);
+            })
+            .catch((e) => {
+                console.log("error uploading pic", e);
+                res.json({ success: false });
+            });
     } else {
         res.json({ success: false });
     }
 });
 
-app.post("/update-bio",(req,res)=>{
+app.post("/update-bio", (req, res) => {
     const data = req.body;
-    console.log(data.textarea);
     db.updateBio(data.textarea, req.session.userId).then(({ rows }) => {
         res.json({ success: true, bio: rows[0].bio });
-        console.log(rows);
     });
+});
+
+//FIND USERS============
+
+app.get("/people/:people?", (req, res) => {
+    // console.log("people I search", req.params.people);
+    db.searchPeople(req.params.people)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((e) => {
+            console.log("Error in server /people", e);
+        });
 });
 
 //MOUNT=================
 
 app.get("/appmount", (req, res) => {
     db.getUserById(req.session.userId)
-        .then(({rows}) => {
+        .then(({ rows }) => {
             res.json(rows[0]);
         })
         .catch((e) => {

@@ -1,5 +1,4 @@
 export default function ProfilePic({ first, last, imageUrl, toggler,id}) {
-    console.log(toggler);
     imageUrl = imageUrl || `default.png`;
     return (
         <>

@@ -12,7 +12,7 @@ export class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        console.log("Login mounted");
+        // console.log("Login mounted");
     }
 
     handleChange({ target }) {

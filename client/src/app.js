@@ -2,7 +2,7 @@ import { Component } from "react";
 import ProfilePic from "./profilePic";
 import Uploader from "./uploaderComponent";
 import Profile from "./profile";
-// import Profile from "./profile";
+import { FindPeople } from "./findpeople";
 
 export default class App extends Component {
     constructor() {
@@ -34,12 +34,12 @@ export default class App extends Component {
         //and store this data un the component state
     }
 
-    updateImgUrl(url){
-        this.setState({url:url});
+    updateImgUrl(url) {
+        this.setState({ url: url });
     }
 
-    renderBio(newBio){
-        this.setState({bio:newBio});
+    renderBio(newBio) {
+        this.setState({ bio: newBio });
     }
 
     togglerUploader() {
@@ -64,6 +64,7 @@ export default class App extends Component {
                         Logout
                     </a>
                 </header>
+                <FindPeople />
                 <Profile
                     first={this.state.first}
                     last={this.state.last}

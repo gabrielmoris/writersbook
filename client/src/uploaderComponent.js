@@ -10,7 +10,7 @@ export default class uploader extends Component {
     }
 
     handleChange({ target }) {
-        console.log(("evt", target.files[0]));
+        // console.log(("evt", target.files[0]));
         this.setState(
             {
                 [target.name]: target.files[0],

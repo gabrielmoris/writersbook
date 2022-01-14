@@ -55,7 +55,6 @@ module.exports.updatePassword = (password, email) => {
     return db.query(q, params);
 };
 
-
 module.exports.getUserById = (id) => {
     const q = "SELECT * FROM users WHERE id = $1";
     const params = [id];
@@ -71,5 +70,11 @@ module.exports.updateImage = (url, id) => {
 module.exports.updateBio = (bio, id) => {
     const q = `UPDATE users SET bio=$1 WHERE id = $2 RETURNING bio`;
     const params = [bio, id];
+    return db.query(q, params);
+};
+
+module.exports.searchPeople = (val) => {
+    const q = `SELECT first, last, id, url, bio FROM users WHERE first ILIKE $1`;
+    const params = [val + "%"];
     return db.query(q, params);
 };

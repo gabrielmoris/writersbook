@@ -66,7 +66,7 @@ export class ResetPassword extends Component {
                 [target.name]: target.value,
             },
             () => {
-                console.log("handle change uplade done", this.state);
+                // console.log("handle change uplade done", this.state);
             }
         );
     }
@@ -100,7 +100,7 @@ export class ResetPassword extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /reset-password/confirm", data);
+                // console.log("response data from /reset-password/confirm", data);
                 if (data.success === true) {
                     this.setState({ stage: this.state.stage + 1 });
                 }
