@@ -60,6 +60,9 @@ export default class App extends Component {
                         imageUrl={this.state.url}
                         toggler={this.togglerUploader}
                     />
+                    <a className="logout" href="/logout">
+                        Logout
+                    </a>
                 </header>
                 <Profile
                     first={this.state.first}
@@ -69,9 +72,6 @@ export default class App extends Component {
                     bio={this.state.bio}
                     renderbio={this.renderBio}
                 />
-                <a className="logout" href="/logout">
-                    Logout
-                </a>
 
                 {this.state.uploaderIsVisible && (
                     <Uploader

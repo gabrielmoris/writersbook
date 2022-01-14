@@ -141,6 +141,9 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         db.updateImage(url, req.session.userId).then(({ rows }) => {
             res.json({ success: true, img: rows[0].url });
             console.log(rows);
+        }).catch((e)=>{
+            console.log("error uploading pic", e);
+            res.json({ success: false });
         });
     } else {
         res.json({ success: false });

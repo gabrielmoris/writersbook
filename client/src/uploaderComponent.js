@@ -39,17 +39,18 @@ export default class uploader extends Component {
                 }
             })
             .catch((err) => {
-                console.log("Err in fetcch /login.json", err);
+                console.log("Err in fetch /upload", err);
+                this.setState({ error: "Something went wrong." });
             });
     }
 
     render() {
         return (
             <>
-                <div></div>
                 {this.state.error && (
-                    <h2 style={{ color: "red" }}>{this.state.error}</h2>
+                    <h2 className="error" style={{ color: "red"}}>{this.state.error}</h2>
                 )}
+                <div></div>
                 <form className="uploader">
                     <h2>Upload your picture!</h2>
                     <input
