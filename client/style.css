@@ -145,7 +145,7 @@ h2 {
 .logout {
     position: absolute;
     top: 100px;
-    right: 70px;
+    right: 80px;
     height: 30px;
 }
 
@@ -191,6 +191,8 @@ h2 {
     background-color: rgb(201, 184, 161);
     box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5);
     border-radius: 7px;
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
 }
 
 .error {
@@ -209,7 +211,7 @@ h2 {
     left: 99px;
     position: absolute;
     width: 200px;
-    background-color: rgba(250, 235, 215, 0.459);
+    background-color: rgba(250, 235, 215, 0.9);
     border-radius: 7px;
     box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5);
 
