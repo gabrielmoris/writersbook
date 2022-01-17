@@ -79,7 +79,7 @@ export default class BioEditor extends Component {
                         </form>
                     </>
                 )}
-                <button onClick={this.togglerBio}>
+                <button className="bio-btn" onClick={this.togglerBio}>
                     {(this.state.bioButton && "Cancel") || "Write your Bio"}
                 </button>
                 {this.state.bioIsVisible && (

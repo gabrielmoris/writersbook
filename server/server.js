@@ -183,6 +183,18 @@ app.get("/appmount", (req, res) => {
         });
 });
 
+//RENDER OTHER USER=====
+
+app.get(`/api/user/:id`, (req, res) => {
+    db.getUserById(req.params.id)
+        .then(({ rows }) => {
+            res.json(rows[0]);
+        })
+        .catch((e) => {
+            console.log("Error in server /appmount", e);
+        });
+});
+
 //WELCOME===============
 app.get("/user/id.json", function (req, res) {
     //this i turn one once i have the middleware cookie.session

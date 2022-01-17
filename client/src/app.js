@@ -3,6 +3,8 @@ import ProfilePic from "./profilePic";
 import Uploader from "./uploaderComponent";
 import Profile from "./profile";
 import { FindPeople } from "./findpeople";
+import OtherProfile from "./otherProfile";
+import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends Component {
     constructor() {
@@ -29,6 +31,9 @@ export default class App extends Component {
                     url: data.url,
                     bio: data.bio,
                 });
+            })
+            .catch((e) => {
+                console.log("Error Mounting app: ", e);
             });
         //make fetch request to get data for currently loger in user
         //and store this data un the component state
@@ -51,35 +56,42 @@ export default class App extends Component {
     render() {
         return (
             <>
-                <header>
-                    <img className="logo" src="/logo.png" alt="logo" />
-                    <h1 className="welcome">Writersbook</h1>
-                    <ProfilePic
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.url}
-                        toggler={this.togglerUploader}
-                    />
-                    <a className="logout" href="/logout">
-                        Logout
-                    </a>
-                </header>
-                <FindPeople />
-                <Profile
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageUrl={this.state.url}
-                    toggler={this.togglerUploader}
-                    bio={this.state.bio}
-                    renderbio={this.renderBio}
-                />
+                <BrowserRouter>
+                    <header>
+                        <img className="logo" src="/logo.png" alt="logo" />
+                        <h1 className="welcome">Writersbook</h1>
+                        <ProfilePic
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageUrl={this.state.url}
+                            toggler={this.togglerUploader}
+                        />
+                        <a className="logout" href="/logout">
+                            Logout
+                        </a>
+                    </header>
+                    <FindPeople />
+                    <Route exact path="/">
+                        <Profile
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageUrl={this.state.url}
+                            toggler={this.togglerUploader}
+                            bio={this.state.bio}
+                            renderbio={this.renderBio}
+                        />
+                    </Route>
+                    <Route path="/user/:id">
+                        <OtherProfile />
+                    </Route>
 
-                {this.state.uploaderIsVisible && (
-                    <Uploader
-                        updater={this.updateImgUrl}
-                        toggler={this.togglerUploader}
-                    />
-                )}
+                    {this.state.uploaderIsVisible && (
+                        <Uploader
+                            updater={this.updateImgUrl}
+                            toggler={this.togglerUploader}
+                        />
+                    )}
+                </BrowserRouter>
             </>
         );
     }

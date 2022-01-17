@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export function FindPeople() {
     const [search, setSearch] = useState("");
@@ -25,9 +26,20 @@ export function FindPeople() {
             <div className="relative">
                 <div className="absolute">
                     {people.map((user) => (
-                        <div key={user.id}>
-                            <img className="minipic" src={user.url}></img>{" "}
-                            {user.first} {user.last}
+                        <div className="user-list" key={user.id}>
+                            {/* <a href={`/user/${user.id}`}>
+                                <img className="minipic" src={user.url}></img>
+                                {user.first} {user.last}
+                            </a> */}
+                            <Link
+                                onClick={() => {
+                                    setSearch({ target: { value: "" } });
+                                }}
+                                to={`/user/${user.id}`}
+                            >
+                                <img className="minipic" src={user.url}></img>
+                                {user.first} {user.last}
+                            </Link>
                             <hr />
                         </div>
                     ))}

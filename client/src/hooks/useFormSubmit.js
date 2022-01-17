@@ -1,0 +1,30 @@
+import { useState } from "react";
+
+export default function useFormSubmit(url, userInput) {
+    const [error, setError] = useState(false);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // console.log("user wants to submit",this.state)
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userInput),
+        })
+            .then((data) => data.json())
+            .then((data) => {
+                // console.log("response data from /register.json", data.success);
+                if (data.success === true) {
+                    location.replace("/");
+                } else {
+                    setError("Something went wrong.");
+                }
+            })
+            .catch((err) => {
+                console.log("Err in fetcch /register.json", err);
+                setError("Something went wrong.");
+            });
+    };
+    return [handleSubmit, error];
+}
