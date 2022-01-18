@@ -1,6 +1,7 @@
 import { useParams, useHistory } from "react-router";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import FriendBtn from "./friendBtn";
 
 export default function OtherProfile() {
     const { id } = useParams();
@@ -34,6 +35,7 @@ export default function OtherProfile() {
                     <h2>
                         {userData.first} {userData.last}
                     </h2>
+                    <FriendBtn id={id} />
                     <h3 className="bio">{userData.bio}</h3>
                     <Link className="link" to={`/`}>
                         Go back

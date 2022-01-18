@@ -25,7 +25,7 @@ export default class BioEditor extends Component {
 
     updateBio(e) {
         e.preventDefault();
-        if (this.state.textarea) {
+        if (this.state.textarea!=this.props.bio) {
             fetch("/update-bio", {
                 method: "POST",
                 headers: {

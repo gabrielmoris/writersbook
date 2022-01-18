@@ -171,7 +171,7 @@ app.get("/people/:people?", (req, res) => {
         });
 });
 
-//MOUNT=================
+//APP=MOUNT=================
 
 app.get("/appmount", (req, res) => {
     db.getUserById(req.session.userId)
@@ -194,6 +194,31 @@ app.get(`/api/user/:id`, (req, res) => {
             console.log("Error in server /appmount", e);
         });
 });
+
+// FRIENDSHIPS==========
+
+app.get("/api/following/:id", (req, res) => {
+    const logedInId = req.session.userId;
+    const viewedId = req.params.id;
+    db.isFriend(logedInId, viewedId).then(({ rows }) => {
+        console.log(rows);
+        if (rows.length === 0) {
+            res.json("Follow");
+        } else if (rows.accepted) {
+            res.json("Unfollow");
+        }
+        else if(rows.sender_id){
+            res.json("Cancel Follow");
+        }
+
+        else if(rows.recipient_id){
+            res.json("Accept");
+        }
+    }).catch((e)=>{
+        console.log("Error in /api/following/:id ",e);
+    });
+});
+
 
 //WELCOME===============
 app.get("/user/id.json", function (req, res) {

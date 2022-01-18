@@ -78,3 +78,9 @@ module.exports.searchPeople = (val) => {
     const params = [val + "%"];
     return db.query(q, params);
 };
+
+module.exports.isFriend = (logedInId, viewedId) => {
+    const q = `SELECT * FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`;
+    const params = [logedInId, viewedId];
+    return db.query(q, params);
+};

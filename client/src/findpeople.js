@@ -27,10 +27,6 @@ export function FindPeople() {
                 <div className="absolute">
                     {people.map((user) => (
                         <div className="user-list" key={user.id}>
-                            {/* <a href={`/user/${user.id}`}>
-                                <img className="minipic" src={user.url}></img>
-                                {user.first} {user.last}
-                            </a> */}
                             <Link
                                 onClick={() => {
                                     setSearch({ target: { value: "" } });

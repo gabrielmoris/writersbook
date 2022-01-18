@@ -100,6 +100,13 @@ h2 {
     margin: 0;
 }
 
+.link{
+    position: absolute;
+     top: 150px;
+    right: 75px;
+    height: 30px;
+}
+
 .logo {
     display: inline;
     height: 80px;
@@ -208,7 +215,7 @@ h2 {
     max-height: 450px;
     overflow: auto;
     text-align: justify;
-    margin: 0 20px 0 20px;
+    margin: 10px 20px 0 20px;
 }
 
 .bio-btn {
@@ -272,4 +279,13 @@ h2 {
     background: #64625f;
     border-radius: 9px;
     box-shadow: inset 0px 0px 0px 0px #f0f0f0;
+}
+
+@media screen and (max-width: 800px) {
+    .bio {
+        column-count:1;
+        max-height: 600;
+        font-size: 25px;
+        margin: 0 50px 0 50px;
+    }
 }
