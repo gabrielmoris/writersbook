@@ -25,27 +25,31 @@ export default class BioEditor extends Component {
 
     updateBio(e) {
         e.preventDefault();
-        fetch("/update-bio", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(this.state),
-        })
-            .then((data) => data.json())
-            .then((data) => {
-                // console.log("response data from /login.json", data);
-                if (data.success === true) {
-                    this.props.renderbio(data.bio);
-                    this.togglerBio();
-                } else {
-                    this.setState({ error: "Something went wrong." });
-                }
+        if (this.state.textarea) {
+            fetch("/update-bio", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(this.state),
             })
-            .catch((err) => {
-                console.log("Err in fetcch /login.json", err);
-                this.setState({ error: "Something went wrong." });
-            });
+                .then((data) => data.json())
+                .then((data) => {
+                    // console.log("response data from /login.json", data);
+                    if (data.success === true) {
+                        this.props.renderbio(data.bio);
+                        this.togglerBio();
+                    } else {
+                        this.setState({ error: "Something went wrong." });
+                    }
+                })
+                .catch((err) => {
+                    console.log("Err in fetcch /login.json", err);
+                    this.setState({ error: "Something went wrong." });
+                });
+        } else {
+            this.togglerBio();
+        }
     }
 
     handleChange({ target }) {
