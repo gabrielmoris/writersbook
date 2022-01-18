@@ -3,6 +3,8 @@ body {
     font-family: "Cookie", cursive;
     font-size: 25px;
     text-align: center;
+    margin:0;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -286,6 +288,22 @@ h2 {
         column-count:1;
         max-height: 600;
         font-size: 25px;
-        margin: 0 50px 0 50px;
+        margin: 0 5px 0 5px;
+    }
+
+    .logout{
+        right:0;
+    }
+
+    .link{
+        right:0
+    }
+
+    .logo{
+        margin:0;
+    }
+
+    .welcome{
+        font-size: 25px;
     }
 }

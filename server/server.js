@@ -221,7 +221,6 @@ app.get("/api/following/:id", (req, res) => {
 app.post(`/api/follow-status/:id`, (req, res) => {
     const logedInId = req.session.userId;
     const viewedId = req.params.id;
-    console.log(req.body);
 
     if(req.body.buttonText==="Follow"){
         db.follow(logedInId,viewedId).then(res.json("Cancel Follow")).catch((e)=>{
