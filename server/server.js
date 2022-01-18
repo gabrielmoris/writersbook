@@ -200,25 +200,53 @@ app.get(`/api/user/:id`, (req, res) => {
 app.get("/api/following/:id", (req, res) => {
     const logedInId = req.session.userId;
     const viewedId = req.params.id;
-    db.isFriend(logedInId, viewedId).then(({ rows }) => {
-        console.log(rows);
-        if (rows.length === 0) {
-            res.json("Follow");
-        } else if (rows.accepted) {
-            res.json("Unfollow");
-        }
-        else if(rows.sender_id){
-            res.json("Cancel Follow");
-        }
-
-        else if(rows.recipient_id){
-            res.json("Accept");
-        }
-    }).catch((e)=>{
-        console.log("Error in /api/following/:id ",e);
-    });
+    db.isFriend(logedInId, viewedId)
+        .then(({ rows }) => {
+            console.log(rows);
+            if (rows.length === 0) {
+                res.json("Follow");
+            } else if (rows[0].accepted) {
+                res.json("Unfollow");
+            } else if (rows[0].sender_id===logedInId) {
+                res.json("Cancel Follow");
+            } else if (rows[0].recipient_id===logedInId) {
+                res.json("Accept");
+            }
+        })
+        .catch((e) => {
+            console.log("Error in /api/following/:id ", e);
+        });
 });
 
+app.post(`/api/follow-status/:id`, (req, res) => {
+    const logedInId = req.session.userId;
+    const viewedId = req.params.id;
+    console.log(req.body);
+
+    if(req.body.buttonText==="Follow"){
+        db.follow(logedInId,viewedId).then(res.json("Cancel Follow")).catch((e)=>{
+            console.log("Error following in the database", e);
+        });
+    } else if (req.body.buttonText === "Cancel Follow") {
+        db.cancelFollow(logedInId, viewedId)
+            .then(res.json("Follow"))
+            .catch((e) => {
+                console.log("Error following in the database", e);
+            });
+    } else if(req.body.buttonText ==="Accept"){
+        db.acceptFollow(logedInId, viewedId)
+            .then(res.json("Unfollow"))
+            .catch((e) => {
+                console.log("Error following in the database", e);
+            });
+    } else if(req.body.buttonText ==="Unfollow"){
+        db.unfollow(logedInId, viewedId)
+            .then(res.json("Follow"))
+            .catch((e) => {
+                console.log("Error following in the database", e);
+            });
+    }
+});
 
 //WELCOME===============
 app.get("/user/id.json", function (req, res) {

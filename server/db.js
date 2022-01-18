@@ -84,3 +84,27 @@ module.exports.isFriend = (logedInId, viewedId) => {
     const params = [logedInId, viewedId];
     return db.query(q, params);
 };
+
+module.exports.follow = (logedInId, viewedId) => {
+    const q = `INSERT into friendships (sender_id, recipient_id) VALUES($1,$2) RETURNING *`;
+    const params = [logedInId, viewedId];
+    return db.query(q, params);
+};
+
+module.exports.cancelFollow = (logedInId, viewedId) => {
+    const q = `DELETE FROM friendships WHERE sender_id = $1 AND recipient_id =$2`;
+    const params = [logedInId, viewedId];
+    return db.query(q, params);
+};
+
+module.exports.acceptFollow = (logedInId, viewedId) => {
+    const q = `UPDATE friendships SET accepted=true WHERE sender_id = $2 AND recipient_id =$1`;
+    const params = [logedInId, viewedId];
+    return db.query(q, params);
+};
+
+module.exports.unfollow = (logedInId, viewedId) => {
+    const q = `DELETE FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`;
+    const params = [logedInId, viewedId];
+    return db.query(q, params);
+};
