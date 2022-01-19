@@ -62,7 +62,6 @@ export default function BioEditor({ bio, renderbio }) {
                 <button
                     onClick={() => {
                         updateBio(bio);
-                        togglerBio();
                     }}
                 >
                     Save

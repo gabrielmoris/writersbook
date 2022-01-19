@@ -284,20 +284,21 @@ h2 {
     box-shadow: inset 0px 0px 0px 0px #f0f0f0;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
     .bio {
-        column-count:1;
-        max-height: 600;
+        column-count: 1;
+        max-height: 850px;
         font-size: 25px;
         margin: 0 5px 0 5px;
     }
 
     .logout{
-        right:0;
+        right: 300px;
     }
 
     .link{
-        right:0
+        right:0;
+        top:100px;
     }
 
     .logo{
