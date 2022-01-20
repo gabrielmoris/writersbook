@@ -108,3 +108,14 @@ module.exports.unfollow = (logedInId, viewedId) => {
     const params = [logedInId, viewedId];
     return db.query(q, params);
 };
+
+module.exports.checkfollowing= (id)=>{
+    const q = `SELECT users.id, first, last, url, accepted
+  FROM friendships
+  JOIN users ON (accepted = FALSE AND recipient_id = $1 AND sender_id = users.id) OR
+                (accepted = TRUE AND recipient_id = $1 AND sender_id = users.id) OR
+                (accepted = TRUE AND sender_id = $1 AND recipient_id = users.id)`;
+
+    const params =[id];
+    return db.query(q,params);
+};

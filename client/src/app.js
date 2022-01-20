@@ -4,7 +4,8 @@ import Uploader from "./uploaderComponent";
 import Profile from "./profile";
 import { FindPeople } from "./findpeople";
 import OtherProfile from "./otherProfile";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import { FriendsAndWannabees } from "./friendsAndWannabees";
 
 export default class App extends Component {
     constructor() {
@@ -60,15 +61,18 @@ export default class App extends Component {
                     <header>
                         <img className="logo" src="/logo.png" alt="logo" />
                         <h1 className="welcome">Writersbook</h1>
-                        <ProfilePic
-                            first={this.state.first}
-                            last={this.state.last}
-                            imageUrl={this.state.url}
-                            toggler={this.togglerUploader}
-                        />
-                        <a className="logout" href="/logout">
-                            Logout
-                        </a>
+                        <div className="wannafriends">
+                            <ProfilePic
+                                first={this.state.first}
+                                last={this.state.last}
+                                imageUrl={this.state.url}
+                                toggler={this.togglerUploader}
+                            />
+                            <a className="logout" href="/logout">
+                                Logout
+                            </a>
+                            <Link to="/friends">Follows</Link>
+                        </div>
                     </header>
                     <FindPeople />
                     <Route exact path="/">
@@ -84,7 +88,9 @@ export default class App extends Component {
                     <Route path="/user/:id">
                         <OtherProfile />
                     </Route>
-
+                    <Route path="/friends">
+                        <FriendsAndWannabees />
+                    </Route>
                     {this.state.uploaderIsVisible && (
                         <Uploader
                             updater={this.updateImgUrl}

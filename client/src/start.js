@@ -1,6 +1,16 @@
 import ReactDOM from "react-dom";
 import Welcome from "./welcome";
 import App from "./app";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import * as immutableState from "redux-immutable-state-invariant";
+import reducer from "./redux/reducer";
+
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(immutableState.default()))
+);
 
 fetch("/user/id.json")
     .then((response) => response.json())
@@ -9,7 +19,9 @@ fetch("/user/id.json")
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
             ReactDOM.render(
-                <App />,
+                <Provider store={store}>
+                    <App />
+                </Provider>,
                 document.querySelector("main")
             );
         }

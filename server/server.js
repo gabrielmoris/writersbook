@@ -247,6 +247,18 @@ app.post(`/api/follow-status/:id`, (req, res) => {
     }
 });
 
+//FRIENDSANDWANABEES COMPONENT==
+
+app.get(`/follow`, (req, res) => {
+    db.checkfollowing(req.session.userId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((e) => {
+            console.log("Error in server /follow", e);
+        });
+});
+
 //WELCOME===============
 app.get("/user/id.json", function (req, res) {
     //this i turn one once i have the middleware cookie.session
