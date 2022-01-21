@@ -4,7 +4,7 @@ export default function useFormSubmit(url, userInput) {
     const [error, setError] = useState(false);
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log("user wants to submit",this.state)
+
         fetch(url, {
             method: "POST",
             headers: {
@@ -14,7 +14,7 @@ export default function useFormSubmit(url, userInput) {
         })
             .then((data) => data.json())
             .then((data) => {
-                // console.log("response data from /register.json", data.success);
+               
                 if (data.success === true) {
                     location.replace("/");
                 } else {

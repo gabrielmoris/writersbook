@@ -36,8 +36,6 @@ export default class App extends Component {
             .catch((e) => {
                 console.log("Error Mounting app: ", e);
             });
-        //make fetch request to get data for currently loger in user
-        //and store this data un the component state
     }
 
     updateImgUrl(url) {

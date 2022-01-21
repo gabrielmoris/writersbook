@@ -15,7 +15,6 @@ export function friendsAndWannabeesReducer(friendsAndWannabees=null, action) {
         });
         return newFriendsAndWannabees;
     }
-    console.log("friendsAndWannabees", friendsAndWannabees);
     return friendsAndWannabees;
 }
 

@@ -26,12 +26,11 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 //=====SERVER REQUESTS=====
 //REGISTER=================
 app.post("/register.json", (req, res) => {
-    // console.log("from the server side", req.body);
+
     hash(req.body.password)
         .then((hashedPw) => {
             db.addUser(req.body.first, req.body.last, req.body.email, hashedPw)
                 .then((row) => {
-                    // console.log(row)
                     req.session.userId = row.rows[0].id;
                     res.json({ success: true });
                 })
@@ -140,7 +139,6 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         db.updateImage(url, req.session.userId)
             .then(({ rows }) => {
                 res.json({ success: true, img: rows[0].url });
-                console.log(rows);
             })
             .catch((e) => {
                 console.log("error uploading pic", e);
@@ -161,7 +159,7 @@ app.post("/update-bio", (req, res) => {
 //FIND USERS============
 
 app.get("/people/:people?", (req, res) => {
-    // console.log("people I search", req.params.people);
+
     db.searchPeople(req.params.people)
         .then(({ rows }) => {
             res.json(rows);
@@ -202,7 +200,6 @@ app.get("/api/following/:id", (req, res) => {
     const viewedId = req.params.id;
     db.isFriend(logedInId, viewedId)
         .then(({ rows }) => {
-            console.log(rows);
             if (rows.length === 0) {
                 res.json("Follow");
             } else if (rows[0].accepted) {
@@ -266,7 +263,7 @@ app.get(`/follow`, (req, res) => {
 
 //WELCOME===============
 app.get("/user/id.json", function (req, res) {
-    //this i turn one once i have the middleware cookie.session
+
     res.json({
         userId: req.session.userId,
     });

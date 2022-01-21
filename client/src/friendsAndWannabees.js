@@ -42,7 +42,7 @@ export function FriendsAndWannabees() {
     }, []);
 
     const handleAccept = (id) => {
-        //step1 make a POST request to update the DATABASE
+       
         fetch(`/api/follow-status/${id}`, {
             method: "POST",
             headers: {
@@ -78,7 +78,7 @@ export function FriendsAndWannabees() {
     };
 
     const handleReject = (id) => {
-        //step1 make a POST request to update the DATABASE
+        
         fetch(`/api/follow-status/${id}`, {
             method: "POST",
             headers: {

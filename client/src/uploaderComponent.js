@@ -4,13 +4,13 @@ export default class uploader extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-        //I can turn in the render this in arrow functions, but this way is better for the performance.
+       
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange({ target }) {
-        // console.log(("evt", target.files[0]));
+  
         this.setState(
             {
                 [target.name]: target.files[0],

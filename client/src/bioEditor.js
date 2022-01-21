@@ -9,7 +9,6 @@ export default function BioEditor({ bio, renderbio }) {
     const [error, setError] = useState();
 
     useEffect(() => {
-        // console.log(bio);
     }, [bio]);
 
     const togglerBio = () => {

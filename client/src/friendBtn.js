@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export default function FriendBtn({ id }) {
-    // console.log("props in FriendBtn",id);
+
     const [buttonText, setButtonText] = useState();
     const [error, setError] = useState();
     useEffect(() => {

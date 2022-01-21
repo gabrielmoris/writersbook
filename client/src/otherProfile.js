@@ -9,7 +9,7 @@ export default function OtherProfile() {
     const [userData, setUserData] = useState();
 
     useEffect(() => {
-        //make some kind of request to some kind of place
+
         fetch(`/api/user/${id}`)
             .then((data) => {
                 return data.json();

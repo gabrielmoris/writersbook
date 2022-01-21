@@ -37,7 +37,7 @@ module.exports.upload = (req, res, next) => {
             fs.unlink(path, () => {});
         })
         .catch((err) => {
-            // uh oh
+           
             console.log("NO, the IMG IS NOT in the cloud...", err);
             return res.sendStatus(500);
         });
