@@ -97,6 +97,12 @@ module.exports.cancelFollow = (logedInId, viewedId) => {
     return db.query(q, params);
 };
 
+module.exports.rejectFollow = (logedInId, viewedId) => {
+    const q = `DELETE FROM friendships WHERE recipient_id = $1 AND sender_id = $2`;
+    const params = [logedInId, viewedId];
+    return db.query(q, params);
+};
+
 module.exports.acceptFollow = (logedInId, viewedId) => {
     const q = `UPDATE friendships SET accepted=true WHERE sender_id = $2 AND recipient_id =$1`;
     const params = [logedInId, viewedId];

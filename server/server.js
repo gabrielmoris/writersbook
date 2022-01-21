@@ -244,7 +244,12 @@ app.post(`/api/follow-status/:id`, (req, res) => {
             .catch((e) => {
                 console.log("Error following in the database", e);
             });
-    }
+    } else if (req.body.buttonText === "Reject") {
+        db.rejectFollow(logedInId, viewedId)
+            .then(res.json("Follow"))
+            .catch((e) => {
+                console.log("Error following in the database", e);
+            });}
 });
 
 //FRIENDSANDWANABEES COMPONENT==

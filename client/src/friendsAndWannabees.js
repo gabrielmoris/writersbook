@@ -1,6 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { makeFriend, allFriend, endFriend } from "./redux/friends-and-wannabees/slice";
-import { useEffect,useState } from "react";
+import {
+    makeFriend,
+    allFriend,
+    endFriend,
+} from "./redux/friends-and-wannabees/slice";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export function FriendsAndWannabees() {
@@ -53,7 +57,7 @@ export function FriendsAndWannabees() {
             .catch((e) => {
                 console.log("Error Accepting the request: ", e);
                 setError("Something went wrong 🤔");
-            });        
+            });
     };
     const handleUnfollow = (id) => {
         fetch(`/api/follow-status/${id}`, {
@@ -73,6 +77,24 @@ export function FriendsAndWannabees() {
             });
     };
 
+    const handleReject = (id) => {
+        //step1 make a POST request to update the DATABASE
+        fetch(`/api/follow-status/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: id, buttonText: "Reject" }),
+        })
+            .then((data) => data.json())
+            .then(() => {
+                dispatch(endFriend(id));
+            })
+            .catch((e) => {
+                console.log("Error Accepting the request: ", e);
+                setError("Something went wrong 🤔");
+            });
+    };    
 
     return (
         <>
@@ -93,9 +115,18 @@ export function FriendsAndWannabees() {
                             <p>
                                 {wannabe.first} {wannabe.last}
                             </p>
-                            <button onClick={() => handleAccept(wannabe.id)}>
-                                Accept
-                            </button>
+                            <div className="2-buttons">
+                                <button
+                                    onClick={() => handleAccept(wannabe.id)}
+                                >
+                                    Accept
+                                </button>
+                                <button
+                                    onClick={() => handleReject(wannabe.id)}
+                                >
+                                    Reject
+                                </button>
+                            </div>
                         </div>
                     );
                 })}
