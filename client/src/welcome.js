@@ -10,6 +10,7 @@ export default function Welcome() {
                 <img className="logo" src="/logo.png" alt="logo" />
                 <h1 className="welcome">Writersbook</h1>
             </header>
+
             <BrowserRouter>
                 <div>
                     <Route exact path="/">

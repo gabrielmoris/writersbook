@@ -6,6 +6,13 @@ import { FindPeople } from "./findpeople";
 import OtherProfile from "./otherProfile";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { FriendsAndWannabees } from "./friendsAndWannabees";
+// SOCKET IO======
+import { io } from "socket.io-client";
+
+const socket = io();
+socket.on("hello", (message) => console.log(message));
+
+//================
 
 export default class App extends Component {
     constructor() {
@@ -72,6 +79,17 @@ export default class App extends Component {
                             <Link to="/friends">Follows</Link>
                         </div>
                     </header>
+
+                    {/* /////////////// */}
+                    <button
+                        onClick={() =>
+                            socket.emit("client-to-server-onion", "Hello")
+                        }
+                    >
+                        Emit
+                    </button>
+                    {/* /////////////// */}
+
                     <FindPeople />
                     <Route exact path="/">
                         <Profile

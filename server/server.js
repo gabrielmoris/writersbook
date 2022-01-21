@@ -9,6 +9,22 @@ const { sendEmail } = require("./ses.js");
 const cryptoRandomString = require("crypto-random-string");
 const { uploader } = require("./uploader.js");
 const s3 = require("./s3");
+const SocketIOServer = require("socket.io");
+const server = require("http").Server(app);
+
+//=======SOCKET IO=========
+
+const io = SocketIOServer(server, {
+    allowRequest: (req, callback) => {
+        callback(
+            null,
+            req.headers.referer.startsWith("http://localhost:3000") ||
+                req.headers.referer.startsWith(
+                    "https://writersbook.herokuapp.com/"
+                )
+        );
+    },
+});
 
 //======MIDDLEWARE======
 app.use(compression());
@@ -24,9 +40,15 @@ app.use(
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 //=====SERVER REQUESTS=====
+//====SOCKET IO============
+
+// app.post("/message", (req, res) => {
+//     io.sockets.sockets.get(socketId).broadcast.emit("Hola");
+//     io.emit("");
+// });
+
 //REGISTER=================
 app.post("/register.json", (req, res) => {
-
     hash(req.body.password)
         .then((hashedPw) => {
             db.addUser(req.body.first, req.body.last, req.body.email, hashedPw)
@@ -159,7 +181,6 @@ app.post("/update-bio", (req, res) => {
 //FIND USERS============
 
 app.get("/people/:people?", (req, res) => {
-
     db.searchPeople(req.params.people)
         .then(({ rows }) => {
             res.json(rows);
@@ -204,9 +225,9 @@ app.get("/api/following/:id", (req, res) => {
                 res.json("Follow");
             } else if (rows[0].accepted) {
                 res.json("Unfollow");
-            } else if (rows[0].sender_id===logedInId) {
+            } else if (rows[0].sender_id === logedInId) {
                 res.json("Cancel Follow");
-            } else if (rows[0].recipient_id===logedInId) {
+            } else if (rows[0].recipient_id === logedInId) {
                 res.json("Accept");
             }
         })
@@ -219,23 +240,25 @@ app.post(`/api/follow-status/:id`, (req, res) => {
     const logedInId = req.session.userId;
     const viewedId = req.params.id;
 
-    if(req.body.buttonText==="Follow"){
-        db.follow(logedInId,viewedId).then(res.json("Cancel Follow")).catch((e)=>{
-            console.log("Error following in the database", e);
-        });
+    if (req.body.buttonText === "Follow") {
+        db.follow(logedInId, viewedId)
+            .then(res.json("Cancel Follow"))
+            .catch((e) => {
+                console.log("Error following in the database", e);
+            });
     } else if (req.body.buttonText === "Cancel Follow") {
         db.cancelFollow(logedInId, viewedId)
             .then(res.json("Follow"))
             .catch((e) => {
                 console.log("Error following in the database", e);
             });
-    } else if(req.body.buttonText ==="Accept"){
+    } else if (req.body.buttonText === "Accept") {
         db.acceptFollow(logedInId, viewedId)
             .then(res.json("Unfollow"))
             .catch((e) => {
                 console.log("Error following in the database", e);
             });
-    } else if(req.body.buttonText ==="Unfollow"){
+    } else if (req.body.buttonText === "Unfollow") {
         db.unfollow(logedInId, viewedId)
             .then(res.json("Follow"))
             .catch((e) => {
@@ -246,7 +269,8 @@ app.post(`/api/follow-status/:id`, (req, res) => {
             .then(res.json("Follow"))
             .catch((e) => {
                 console.log("Error following in the database", e);
-            });}
+            });
+    }
 });
 
 //FRIENDSANDWANABEES COMPONENT==
@@ -263,7 +287,6 @@ app.get(`/follow`, (req, res) => {
 
 //WELCOME===============
 app.get("/user/id.json", function (req, res) {
-
     res.json({
         userId: req.session.userId,
     });
@@ -273,6 +296,16 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
+});
+
+io.on("connection", (socket) => {
+    console.log("New Socket Conenction", socket.id);
+
+    socket.on("client-to-server-onion", (message) => {
+        console.log(message);
+    });
+
+    socket.emit("hello", "Saludos Cordiales");
 });

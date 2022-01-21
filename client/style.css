@@ -164,6 +164,8 @@ h2 {
     border-radius: 60px;
     box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5);
     cursor: pointer;
+    margin-left: 40px;
+    
 }
 
 .uploader {
@@ -298,27 +300,22 @@ h2 {
 }
 
 @media screen and (max-width: 900px) {
+    main {
+        display: flex;
+        flex-direction: column;
+    }
 
-main {
-    display:flex;
-    flex-direction: column;
-}
+    header{
+        width:100%;
+    }
+
     .bio {
         column-count: 1;
         max-height: 650px;
-        max-width: 350px ;
+        max-width: 350px;
         font-size: 25px;
-        margin: 2px 2px 2px 2px ;
+        margin: 2px 2px 2px 2px;
         padding: 2px 2px 2px 2px;
-    }
-
-    .logout {
-        right: 300px;
-    }
-
-    .link {
-        right: 0;
-        top: 100px;
     }
 
     .logo {
@@ -332,10 +329,14 @@ main {
     .link {
         top: 127px;
         height: 30px;
-        right: 5%;
+        right: 0;
     }
 
     .long-hr {
         width: 300px;
+    }
+
+    .profile-pic-small {
+        margin-left: 40px;
     }
 }
