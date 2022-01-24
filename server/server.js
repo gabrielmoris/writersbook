@@ -29,24 +29,21 @@ const io = SocketIOServer(server, {
 //======MIDDLEWARE======
 app.use(compression());
 app.use(express.json()); // to acces the req.body
-app.use(
-    cookieSession({
-        // secret: secretcookie.cookieSecret,
-        secret: "aB3ErT5F6&5F",
-        maxAge: 100 * 60 * 60 * 24 * 14,
-        sameSite: true,
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    // secret: secretcookie.cookieSecret,
+    secret: "P4Y45OQU3M1R45",
+    maxAge: 100 * 60 * 60 * 24 * 14,
+    sameSite: true,
+});
+
+app.use(cookieSessionMiddleware);
+
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 //=====SERVER REQUESTS=====
-//====SOCKET IO============
-
-// app.post("/message", (req, res) => {
-//     io.sockets.sockets.get(socketId).broadcast.emit("Hola");
-//     io.emit("");
-// });
-
 //REGISTER=================
 app.post("/register.json", (req, res) => {
     hash(req.body.password)
@@ -301,11 +298,46 @@ server.listen(process.env.PORT || 3001, function () {
 });
 
 io.on("connection", (socket) => {
-    console.log("New Socket Conenction", socket.id);
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
 
-    socket.on("client-to-server-onion", (message) => {
-        console.log(message);
+    db.getLastTenMessages()
+        .then(({ rows }) => {
+            socket.emit("chatMessages", rows);
+        })
+        .catch((e) => {
+            console.log("Error with the messages in socjket.io", e);
+        });
+
+    socket.on("newChatMessage", (data) => {
+        console.log(
+            "I wrote this in the chat and i am the server sending it: ",
+            data
+        );
+        //1. store the message in the database
+        db.addMessage(socket.request.session.userId, data).then(({ rows }) => {
+            const id = rows[0].id;
+            const date = rows[0].created_at;
+            const message= rows[0].message;
+
+            db.getUserById(socket.request.session.userId).then(({ rows }) => {
+                socket.emit("chatMessage", 
+                    {
+                        chat_id: id,
+                        first: rows[0].first,
+                        last: rows[0].last,
+                        message: message,
+                        time: date,
+                        url: rows[0].url,
+                        user_id: rows[0].id,
+                    },
+                );
+            });
+        });
     });
 
-    socket.emit("hello", "Saludos Cordiales");
+    console.log(
+        `User with the ${socket.id} and the userId ${socket.request.session.userId} connected.`
+    );
 });

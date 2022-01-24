@@ -6,13 +6,7 @@ import { FindPeople } from "./findpeople";
 import OtherProfile from "./otherProfile";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { FriendsAndWannabees } from "./friendsAndWannabees";
-// SOCKET IO======
-import { io } from "socket.io-client";
-
-const socket = io();
-socket.on("hello", (message) => console.log(message));
-
-//================
+import Chat from "./chat";
 
 export default class App extends Component {
     constructor() {
@@ -76,19 +70,10 @@ export default class App extends Component {
                             <a className="logout" href="/logout">
                                 Logout
                             </a>
-                            <Link to="/friends">Follows</Link>
+                            <Link to="/friends">Friends</Link>
+                            <Link to="/chat">Chat</Link>
                         </div>
                     </header>
-
-                    {/* /////////////// */}
-                    <button
-                        onClick={() =>
-                            socket.emit("client-to-server-onion", "Hello")
-                        }
-                    >
-                        Emit
-                    </button>
-                    {/* /////////////// */}
 
                     <FindPeople />
                     <Route exact path="/">
@@ -106,6 +91,9 @@ export default class App extends Component {
                     </Route>
                     <Route path="/friends">
                         <FriendsAndWannabees />
+                    </Route>
+                    <Route path="/chat">
+                        <Chat/>
                     </Route>
                     {this.state.uploaderIsVisible && (
                         <Uploader

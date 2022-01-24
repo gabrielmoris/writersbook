@@ -1,4 +1,4 @@
-export function friendsAndWannabeesReducer(friendsAndWannabees=null, action) {
+export function friendsAndWannabeesReducer(friendsAndWannabees = null, action) {
     if (action.type == "friends-and-wannabees/received") {
         friendsAndWannabees = action.payload.friendsAndWannabees;
     } else if (action.type === "friends-and-wannabees/accept") {
