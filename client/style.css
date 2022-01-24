@@ -21,15 +21,6 @@ main {
     align-items: center;
 }
 
-header {
-    width: 90%;
-    height: 50px;
-    text-align: center;
-    /* text-justify: center; */
-    display: flex;
-    justify-content: space-between;
-}
-
 input {
     margin-bottom: 30px;
     outline: 0;
@@ -105,23 +96,59 @@ h2 {
 
 /* HEADER */
 
+header {
+    margin-top: 10px;
+    display: flex;
+    width: 90%;
+    height: 50px;
+    text-align: center;
+    text-justify: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(77, 76, 76);
+    border-radius: 7px;
+}
+header > a {
+    background-color: rgb(77, 76, 76);
+    border-bottom: none;
+    border-right: none;
+}
+
+header > a:hover {
+    background-color: rgb(77, 76, 76);
+    border-bottom: none;
+    border-right: none;
+}
+
+header > .header-div {
+    display: flex;
+    margin-top: 40px;
+}
+
 .link {
     position: absolute;
-    top: 127px;
+    top: 60px;
     right: 75px;
     height: 30px;
 }
 
 .logo {
     display: inline;
-    height: 80px;
-    width: 80px;
+    height: 55px;
+    width: 55px;
     margin-right: 20px;
     border-radius: 7px;
+    box-shadow: 10px 10px 10px rgba(0, 0.5, 0.5, 0.5);
+}
+
+.header-registration > h1 {
+    margin: 0 5px 0 0;
 }
 
 .welcome {
     display: inline;
+    margin-bottom: 40px;
 }
 
 .reset-password {
@@ -266,6 +293,10 @@ h2 {
     justify-items: center;
 }
 
+.friends-hr {
+    width: 300px;
+}
+
 .h1-smaller {
     font-size: 25px;
     font-weight: bolder;
@@ -355,7 +386,42 @@ h2 {
     }
 
     header {
-        width: 100%;
+        font-size: 15px;
+        width: auto;
+        margin: 1px 1px 1px 1px;
+    }
+
+    a {
+        font-size: 25px;
+        margin-left: 0;
+        margin-right: 15px;
+    }
+
+    a:hover {
+        font-size: 25px;
+        margin-left: 0;
+        margin-right: 15px;
+    }
+
+    header > .header-div {
+        display: inline;
+        margin-top: 4px;
+    }
+
+    .header-div > h1 {
+        position: absolute;
+        top: 50px;
+    }
+
+    .chat-container {
+        max-width: 350px;
+        margin: 2px 2px 2px 2px;
+        padding: 2px 2px 2px 2px;
+        font-size: 25px;
+    }
+
+    .chat-textarea {
+        max-width: 350px;
     }
 
     .bio {
@@ -368,7 +434,7 @@ h2 {
     }
 
     .logo {
-        margin: 0;
+        margin: 0 20px 0 0;
     }
 
     .welcome {
@@ -376,7 +442,7 @@ h2 {
     }
 
     .link {
-        top: 127px;
+        top: 57px;
         height: 30px;
         right: 0;
     }
@@ -386,6 +452,6 @@ h2 {
     }
 
     .profile-pic-small {
-        margin-left: 40px;
+        margin-left: 0;
     }
 }

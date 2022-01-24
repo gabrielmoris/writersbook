@@ -6,7 +6,7 @@ import { ResetPassword } from "./resetPassword";
 export default function Welcome() {
     return (
         <>
-            <header>
+            <header className="header-registration">
                 <img className="logo" src="/logo.png" alt="logo" />
                 <h1 className="welcome">Writersbook</h1>
             </header>

@@ -311,18 +311,24 @@ io.on("connection", (socket) => {
         });
 
     socket.on("newChatMessage", (data) => {
-        console.log(
-            "I wrote this in the chat and i am the server sending it: ",
-            data
-        );
-        //1. store the message in the database
         db.addMessage(socket.request.session.userId, data).then(({ rows }) => {
             const id = rows[0].id;
             const date = rows[0].created_at;
             const message= rows[0].message;
 
             db.getUserById(socket.request.session.userId).then(({ rows }) => {
-                socket.emit("chatMessage", 
+                // socket.emit("chatMessage", 
+                //     {
+                //         chat_id: id,
+                //         first: rows[0].first,
+                //         last: rows[0].last,
+                //         message: message,
+                //         time: date,
+                //         url: rows[0].url,
+                //         user_id: rows[0].id,
+                //     },
+                // );
+                io.emit("chatMessage", 
                     {
                         chat_id: id,
                         first: rows[0].first,
@@ -333,6 +339,7 @@ io.on("connection", (socket) => {
                         user_id: rows[0].id,
                     },
                 );
+
             });
         });
     });

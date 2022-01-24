@@ -103,6 +103,7 @@ export function FriendsAndWannabees() {
                 Go back
             </Link>
             <h1 className="h1-smaller">Wants to follow you:</h1>
+            {!wannabees && <h2>Nobody.</h2>}
             {wannabees &&
                 wannabees.map((wannabe) => {
                     return (
@@ -127,11 +128,13 @@ export function FriendsAndWannabees() {
                                     Reject
                                 </button>
                             </div>
+                            <hr className="friends-hr" />
                         </div>
                     );
                 })}
             <hr className="long-hr" />
             <h1 className="h1-smaller">Following:</h1>
+            {!follows && <h2>Nobody.</h2>}
             {follows &&
                 follows.map((following) => {
                     return (
@@ -149,6 +152,7 @@ export function FriendsAndWannabees() {
                             >
                                 Unfollow
                             </button>
+                            <hr className="friends-hr" />
                         </div>
                     );
                 })}

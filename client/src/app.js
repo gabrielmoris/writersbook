@@ -58,21 +58,23 @@ export default class App extends Component {
             <>
                 <BrowserRouter>
                     <header>
-                        <img className="logo" src="/logo.png" alt="logo" />
-                        <h1 className="welcome">Writersbook</h1>
-                        <div className="wannafriends">
-                            <ProfilePic
-                                first={this.state.first}
-                                last={this.state.last}
-                                imageUrl={this.state.url}
-                                toggler={this.togglerUploader}
-                            />
-                            <a className="logout" href="/logout">
-                                Logout
-                            </a>
-                            <Link to="/friends">Friends</Link>
-                            <Link to="/chat">Chat</Link>
+                        <div className="header-div">
+                            <img className="logo" src="/logo.png" alt="logo" />
+                            <h1 className="welcome">Writersbook</h1>
                         </div>
+                        {/* <div className="wannafriends"> */}
+                        <a className="logout" href="/logout">
+                            Logout
+                        </a>
+                        <Link to="/friends">Friends</Link>
+                        <Link to="/chat">Chat</Link>
+                        <ProfilePic
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageUrl={this.state.url}
+                            toggler={this.togglerUploader}
+                        />
+                        {/* </div> */}
                     </header>
 
                     <FindPeople />
@@ -93,7 +95,7 @@ export default class App extends Component {
                         <FriendsAndWannabees />
                     </Route>
                     <Route path="/chat">
-                        <Chat/>
+                        <Chat />
                     </Route>
                     {this.state.uploaderIsVisible && (
                         <Uploader
