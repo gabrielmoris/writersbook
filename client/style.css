@@ -334,11 +334,12 @@ header > .header-div {
 }
 
 .chat-link {
-    background-color: rgb(77, 76, 76);
+    background-color: rgb(49, 49, 49);
     margin: 2px 15px 0 10px;
     color: antiquewhite;
     border-bottom: none;
     border-right: none;
+    border-radius: 7px;
 }
 
 .chat-link:hover {
