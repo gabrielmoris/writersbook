@@ -337,11 +337,12 @@ header > .header-div {
     background-color: rgb(77, 76, 76);
     margin: 2px 15px 0 10px;
     color: antiquewhite;
-    text-decoration: none;
+    border-bottom: none;
+    border-right: none;
 }
 
 .chat-link:hover {
-    margin-left: 5px;
+    margin: 2px 15px 0 10px;
 }
 
 .time-chat {
