@@ -59,7 +59,13 @@ export default class App extends Component {
                 <BrowserRouter>
                     <header>
                         <div className="header-div">
-                            <img className="logo" src="/logo.png" alt="logo" />
+                            <Link className="logo-header" to={`/`}>
+                                <img
+                                    className="logo"
+                                    src="/logo.png"
+                                    alt="logo"
+                                />
+                            </Link>
                             <h1 className="welcome">Writersbook</h1>
                         </div>
                         {/* <div className="wannafriends"> */}
@@ -86,6 +92,7 @@ export default class App extends Component {
                             toggler={this.togglerUploader}
                             bio={this.state.bio}
                             renderbio={this.renderBio}
+                            id={this.state.id}
                         />
                     </Route>
                     <Route path="/user/:id">

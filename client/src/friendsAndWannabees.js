@@ -5,7 +5,6 @@ import {
     endFriend,
 } from "./redux/friends-and-wannabees/slice";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 export function FriendsAndWannabees() {
     const [error, setError] = useState();
@@ -99,9 +98,6 @@ export function FriendsAndWannabees() {
     return (
         <>
             {error && <h2 style={{ color: "red" }}>{error}</h2>}
-            <Link className="link" to={`/`}>
-                Go back
-            </Link>
             <h1 className="h1-smaller">Wants to follow you:</h1>
             {!wannabees && <h2>Nobody.</h2>}
             {wannabees &&

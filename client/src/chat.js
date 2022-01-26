@@ -4,9 +4,7 @@ import { socket } from "./socket";
 import { Link } from "react-router-dom";
 
 export default function Chat() {
-    const chatMessages = useSelector((state) => state && state.chat
-    );
-
+    const chatMessages = useSelector((state) => state && state.chat);
 
     const chatContainerRef = useRef();
     const textareaRef = useRef();
@@ -15,7 +13,7 @@ export default function Chat() {
         chatContainerRef.current.scrollTop =
             chatContainerRef.current.scrollHeight;
     });
-    
+
     const formatDate = (dbDate) => {
         let createdAtDateObj = new Date(dbDate);
         let newDate = new Intl.DateTimeFormat("en-GB", {
@@ -28,48 +26,42 @@ export default function Chat() {
     const keyCheck = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
-            console.log(e.target.value);
             socket.emit("newChatMessage", e.target.value);
             textareaRef.current.value = "";
         }
     };
 
-    console.log("in chat.js", chatMessages);
+    // console.log("in chat.js", chatMessages);
 
     return (
         <>
-            <Link className="link" to={`/`}>
-                Go back
-            </Link>
             <div className="chat-container" ref={chatContainerRef}>
                 {chatMessages &&
                     chatMessages.map((message) => (
-                        <>
-                            <div className="message" key={message.chat_id}>
-                                <Link
-                                    className="chat-link"
-                                    to={`/user/${message.user_id}`}
-                                >
-                                    <img
-                                        className="minipic"
-                                        src={message.url}
-                                    ></img>
-                                    {message.first} {message.last}:
-                                </Link>
-                                {message.message}
-                                <p className="time-chat">
-                                    {formatDate(message.time)}
-                                </p>
-                                <hr className="chat-hr" />
-                            </div>
-                        </>
+                        <div className="message" key={message.chat_id}>
+                            <Link
+                                className="chat-link"
+                                to={`/user/${message.user_id}`}
+                            >
+                                <img
+                                    className="minipic"
+                                    src={message.url}
+                                ></img>
+                                {message.first} {message.last}:
+                            </Link>
+                            {message.message}
+                            <p className="time-chat">
+                                {formatDate(message.time)}
+                            </p>
+                            <hr className="chat-hr" />
+                        </div>
                     ))}
             </div>
             <textarea
                 className="chat-textarea"
                 ref={textareaRef}
                 onKeyDown={keyCheck}
-                placeholder="Please enter a chat message"
+                placeholder="Push enter to send a message."
             ></textarea>
         </>
     );

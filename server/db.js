@@ -127,12 +127,36 @@ module.exports.checkfollowing = (id) => {
 };
 
 module.exports.getLastTenMessages = () => {
-    const q = `SELECT chat_messages.id AS chat_id, chat_messages.message AS message, chat_messages.created_at AS time, users.id AS user_id, users.first AS first, users.last AS last, users.url AS url FROM chat_messages JOIN users ON users.id = chat_messages.user_id ORDER BY chat_messages.id DESC LIMIT 10`;
+    const q = `SELECT chat_messages.id AS chat_id, chat_messages.message AS message, chat_messages.created_at AS time, users.id AS user_id, users.first AS first, users.last AS last, users.url AS url FROM chat_messages JOIN users ON users.id = chat_messages.user_id ORDER BY chat_messages.id DESC LIMIT 50`;
     return db.query(q);
 };
 
 module.exports.addMessage = (user, message) => {
     const q = `INSERT into chat_messages (user_id, message) VALUES($1, $2) RETURNING id, created_at, message`;
     const params = [user, message];
+    return db.query(q, params);
+};
+
+module.exports.deleteMessagesById = (id) => {
+    const q = `DELETE FROM chat_messages WHERE user_id=$1`;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.deleteFriendshipsById = (id) => {
+    const q = `DELETE FROM friendships WHERE sender_id=$1 OR recipient_id =$1`;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.deleteEmailFromPasswords = (email) => {
+    const q = `DELETE FROM password_reset WHERE email=$1`;
+    const params = [email];
+    return db.query(q, params);
+};
+
+module.exports.deleteUser = (id) => {
+    const q = `DELETE FROM users WHERE id=$1`;
+    const params = [id];
     return db.query(q, params);
 };

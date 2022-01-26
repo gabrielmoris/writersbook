@@ -154,7 +154,10 @@ app.get("/logout", (req, res) => {
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     if (req.file) {
         const url =
-            "https://onionimageboard.s3.amazonaws.com/" + req.file.filename;
+            "https://onionimageboard.s3.amazonaws.com/" +
+            req.session.userId +
+            "/" +
+            req.file.filename;
         db.updateImage(url, req.session.userId)
             .then(({ rows }) => {
                 res.json({ success: true, img: rows[0].url });
@@ -293,6 +296,39 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
+//DELETE ACCOUNT
+app.post(`/api/delete`, (req, res) => {
+    res.json({
+        btn: "Just do it!",
+        err: "If you do it you will loose all your data. This process is irreversible.",
+    });
+});
+
+app.post(`/api/delete-yes`, s3.delete, (req, res) => {
+    
+    db.deleteMessagesById(req.session.userId)
+        .then(() => {
+            db.deleteFriendshipsById(req.session.userId);
+        })
+        .then(() => {
+            db.getUserById(req.session.userId).then((data) => {
+                db.deleteEmailFromPasswords(data.email);
+            });
+        })
+        .then(() => {
+            db.deleteUser(req.session.userId);
+        })
+        .then(() => {
+            req.session = null;
+            res.json({ success: true });
+        })
+        .catch((e) => {
+            console.log("Error deleting account", e);
+        });
+});
+
+// SOCKET.IO AND LISTEN======
+
 server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
@@ -314,32 +350,18 @@ io.on("connection", (socket) => {
         db.addMessage(socket.request.session.userId, data).then(({ rows }) => {
             const id = rows[0].id;
             const date = rows[0].created_at;
-            const message= rows[0].message;
+            const message = rows[0].message;
 
             db.getUserById(socket.request.session.userId).then(({ rows }) => {
-                // socket.emit("chatMessage", 
-                //     {
-                //         chat_id: id,
-                //         first: rows[0].first,
-                //         last: rows[0].last,
-                //         message: message,
-                //         time: date,
-                //         url: rows[0].url,
-                //         user_id: rows[0].id,
-                //     },
-                // );
-                io.emit("chatMessage", 
-                    {
-                        chat_id: id,
-                        first: rows[0].first,
-                        last: rows[0].last,
-                        message: message,
-                        time: date,
-                        url: rows[0].url,
-                        user_id: rows[0].id,
-                    },
-                );
-
+                io.emit("chatMessage", {
+                    chat_id: id,
+                    first: rows[0].first,
+                    last: rows[0].last,
+                    message: message,
+                    time: date,
+                    url: rows[0].url,
+                    user_id: rows[0].id,
+                });
             });
         });
     });

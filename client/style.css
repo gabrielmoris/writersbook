@@ -15,8 +15,6 @@ h1 {
 }
 main {
     display: grid;
-    /* grid-template-columns: 1fr;
-    grid-template-rows: 90px 400px 80px 1fr; */
     justify-items: center;
     align-items: center;
 }
@@ -108,6 +106,7 @@ header {
     align-items: center;
     background-color: rgb(77, 76, 76);
     border-radius: 7px;
+     box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5) inset;
 }
 header > a {
     background-color: rgb(77, 76, 76);
@@ -126,11 +125,23 @@ header > .header-div {
     margin-top: 40px;
 }
 
-.link {
-    position: absolute;
-    top: 60px;
-    right: 75px;
-    height: 30px;
+.logo-header{
+    color: rgba(0, 0, 0, 0);
+    margin: 0;
+    text-decoration: none;
+    border-bottom: none;
+    border-right: none;
+    background-color: rgba(250, 235, 215, 0);
+}
+
+.logo-header:hover{
+    color: rgba(0, 0, 0, 0);
+    margin: 0;
+    border-width: 0;
+    text-decoration: none;
+    border-bottom: none;
+    border-right: none;
+    background-color: rgba(250, 235, 215, 0);
 }
 
 .logo {
@@ -216,14 +227,12 @@ header > .header-div {
 .uploader-input::before {
     content: "Select some files";
     color: antiquewhite;
-    /* display: inline-block; */
     background: -webkit-linear-gradient(top, rgb(43, 33, 20), rgb(5, 4, 2));
     border: 1px solid #999;
     border-radius: 7px;
     margin-left: 55px;
     padding: 5px 8px;
     cursor: pointer;
-    /* text-shadow: 1px 1px #fff; */
     font-family: "Cookie", cursive;
     font-weight: 700;
     font-size: 20pt;
@@ -234,7 +243,7 @@ header > .header-div {
     column-rule: solid 1px rgb(77, 76, 76);
     padding: 10px 40px 10px 40px;
     background-color: rgb(201, 184, 161);
-    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5);
+    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5) inset;
     border-radius: 7px;
     font-family: "Lato", sans-serif;
     font-size: 20px;
@@ -312,6 +321,7 @@ header > .header-div {
     height: 25px;
     width: 700px;
     overflow: auto;
+    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5) inset;
 }
 
 .chat-container {
@@ -323,7 +333,7 @@ header > .header-div {
     font-size: 20px;
     background-color: rgb(77, 76, 76);
     border-radius: 7px;
-    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5);
+    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5) inset;
     display: flex;
     flex-direction: column-reverse;
 }
@@ -441,12 +451,6 @@ header > .header-div {
 
     .welcome {
         font-size: 25px;
-    }
-
-    .link {
-        top: 57px;
-        height: 30px;
-        right: 0;
     }
 
     .long-hr {

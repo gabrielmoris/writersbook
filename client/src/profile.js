@@ -1,5 +1,6 @@
 import ProfilePic from "./profilePic";
 import BioEditor from "./bioEditor";
+import DeleteBtn from "./deleteAccBtn";
 
 export default function Profile({
     first,
@@ -7,7 +8,8 @@ export default function Profile({
     imageUrl,
     toggler,
     bio,
-    renderbio
+    renderbio,
+    id
 }) {
     imageUrl = imageUrl || `default.png`;
     return (
@@ -24,11 +26,9 @@ export default function Profile({
                     <h2>
                         {first} {last}
                     </h2>
-                    <BioEditor
-                        bio={bio}
-                        renderbio={renderbio}
-                    />
+                    <BioEditor bio={bio} renderbio={renderbio} />
                 </div>
+                <DeleteBtn id={id} />
             </div>
         </>
     );
