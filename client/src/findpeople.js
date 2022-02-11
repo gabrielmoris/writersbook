@@ -38,7 +38,7 @@ export function FindPeople() {
                                 <img className="minipic" src={user.url}></img>
                                 {user.first} {user.last}
                             </Link>
-                            <hr />
+                            <hr className="findpeople-hr"/>
                         </div>
                     ))}
                 </div>
