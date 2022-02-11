@@ -41,7 +41,6 @@ export function FriendsAndWannabees() {
     }, []);
 
     const handleAccept = (id) => {
-       
         fetch(`/api/follow-status/${id}`, {
             method: "POST",
             headers: {
@@ -77,7 +76,6 @@ export function FriendsAndWannabees() {
     };
 
     const handleReject = (id) => {
-        
         fetch(`/api/follow-status/${id}`, {
             method: "POST",
             headers: {
@@ -93,13 +91,12 @@ export function FriendsAndWannabees() {
                 console.log("Error Accepting the request: ", e);
                 setError("Something went wrong 🤔");
             });
-    };    
+    };
 
     return (
         <>
             {error && <h2 style={{ color: "red" }}>{error}</h2>}
-            <h1 className="h1-smaller">Wants to follow you:</h1>
-            {!wannabees && <h2>Nobody.</h2>}
+            {wannabees && <h1 className="h1-smaller">Wants to follow you:</h1>}
             {wannabees &&
                 wannabees.map((wannabe) => {
                     return (
@@ -129,8 +126,7 @@ export function FriendsAndWannabees() {
                     );
                 })}
             <hr className="long-hr" />
-            <h1 className="h1-smaller">Following:</h1>
-            {!follows && <h2>Nobody.</h2>}
+            {follows && <h1 className="h1-smaller">Following:</h1>}
             {follows &&
                 follows.map((following) => {
                     return (
