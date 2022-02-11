@@ -319,19 +319,13 @@ header > .header-div {
 .user-list {
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
 }
 
-.user-list > a {
-    border-bottom: none;
-    border-right: none;
-    font-size: 20px;
-    align-self: flex-start;
-    padding-left: 15%;
+.name-person-search{
+    margin:0;
 }
 
 .minipic {
-    /* display: inline; */
     height: 40px;
     border-radius: 5px;
 }

@@ -21,7 +21,8 @@ export function FindPeople() {
 
     return (
         <>
-            <input className="search-people"
+            <input
+                className="search-people"
                 placeholder="Find more writers"
                 onChange={(e) => setSearch(e.target.value)}
             />
@@ -30,15 +31,18 @@ export function FindPeople() {
                     {people.map((user) => (
                         <div className="user-list" key={user.id}>
                             <Link
+                                className="each-person-search"
                                 onClick={() => {
                                     setSearch({ target: { value: "" } });
                                 }}
                                 to={`/user/${user.id}`}
                             >
                                 <img className="minipic" src={user.url}></img>
-                                {user.first} {user.last}
+                                <h4 className="name-person-search">
+                                    {user.first} {user.last}
+                                </h4>
                             </Link>
-                            <hr className="findpeople-hr"/>
+                            <hr className="findpeople-hr" />
                         </div>
                     ))}
                 </div>
