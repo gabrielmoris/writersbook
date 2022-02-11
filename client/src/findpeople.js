@@ -21,8 +21,10 @@ export function FindPeople() {
 
     return (
         <>
-            <h3>Find more writers</h3>
-            <input onChange={(e) => setSearch(e.target.value)} />
+            <input className="search-people"
+                placeholder="Find more writers"
+                onChange={(e) => setSearch(e.target.value)}
+            />
             <div className="relative">
                 <div className="absolute">
                     {people.map((user) => (

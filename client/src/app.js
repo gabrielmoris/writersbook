@@ -68,19 +68,19 @@ export default class App extends Component {
                             </Link>
                             <h1 className="welcome">Writersbook</h1>
                         </div>
-                        {/* <div className="wannafriends"> */}
-                        <a className="logout" href="/logout">
-                            Logout
-                        </a>
-                        <Link to="/friends">Friends</Link>
-                        <Link to="/chat">Chat</Link>
-                        <ProfilePic
-                            first={this.state.first}
-                            last={this.state.last}
-                            imageUrl={this.state.url}
-                            toggler={this.togglerUploader}
-                        />
-                        {/* </div> */}
+                        <div className="navbar">
+                            <a className="logout" href="/logout">
+                                Logout
+                            </a>
+                            <Link to="/friends">Friends</Link>
+                            <Link to="/chat">Chat</Link>
+                            <ProfilePic
+                                first={this.state.first}
+                                last={this.state.last}
+                                imageUrl={this.state.url}
+                                toggler={this.togglerUploader}
+                            />
+                        </div>
                     </header>
 
                     <FindPeople />

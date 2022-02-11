@@ -1,10 +1,31 @@
+/* GENERAL */
 body {
-    background-color: antiquewhite;
-    font-family: "Cookie", cursive;
+    font-family: "Lato", sans-serif;
     font-size: 25px;
     text-align: center;
     margin: 0;
     box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 18px;
+    height: 18px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #faebd7;
+    border: 0.7px solid #000000;
+    border-radius: 19px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(0, 0, 0);
+}
+
+::-webkit-scrollbar-track {
+    background: #64625f;
+    border-radius: 9px;
+    box-shadow: inset 0px 0px 0px 0px #f0f0f0;
 }
 
 h1 {
@@ -13,6 +34,7 @@ h1 {
     font-weight: lighter;
     margin-top: 0;
 }
+
 main {
     display: grid;
     justify-items: center;
@@ -24,31 +46,33 @@ input {
     outline: 0;
     border-width: 0 0 2px;
     border-color: black;
-    background-color: antiquewhite;
     display: block;
     width: 250px;
     height: 30px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
 }
 
 a {
     color: black;
-    margin-left: 50px;
+    margin-left: 20px;
     text-decoration: none;
     border-bottom: solid black 2px;
     border-right: solid black 2px;
-    background-color: antiquewhite;
+    padding: 0 5px;
+    font-family: "Lato", sans-serif;
 }
 
 a:hover {
-    margin: 0 2px 2px 50px;
-    border-width: 2px 0 0 2px;
+    /* margin: 0 2px 2px 20px;
+    border-width: 2px 0 0 2px; */
     background-color: black;
-    color: antiquewhite;
+    color: white;
 }
 
 a:active {
     border-width: 1px 1px 1px 1px;
-    color: antiquewhite;
+    color: white;
 }
 
 form {
@@ -60,29 +84,29 @@ button {
     outline: 0;
     border-width: 0 2px 2px 0;
     border-color: black;
-    background-color: antiquewhite;
-    font-family: "Cookie", cursive;
+    font-family: "Lato", sans-serif;
+    background-color: white;
     font-size: 25px;
 }
 
 button:hover {
-    margin: 0 2px 2px 0;
-    border-width: 2px 0 0 2px;
+    /* margin: 0 2px 2px 0;
+    border-width: 2px 0 0 2px; */
     background-color: black;
-    color: antiquewhite;
+    color: white;
+    cursor: pointer;
 }
 
 button:active {
     border-width: 1px 1px 1px 1px;
-    color: antiquewhite;
+    color: white;
 }
 
 textarea {
     font-size: 20px;
     width: 400px;
     height: 300px;
-    background-color: rgb(201, 184, 161);
-    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5);
+    /* background-color: rgb(201, 184, 161); */
     border-radius: 7px;
     font-family: "Lato", sans-serif;
     margin: 10px 0 0 0;
@@ -90,6 +114,13 @@ textarea {
 
 h2 {
     margin: 0;
+    font-family: "Lato", sans-serif;
+}
+
+.error {
+    position: absolute;
+    right: 40%;
+    top: 30%;
 }
 
 /* HEADER */
@@ -104,20 +135,30 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(77, 76, 76);
+    background-color: #00000062;
     border-radius: 7px;
-     box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5) inset;
 }
-header > a {
-    background-color: rgb(77, 76, 76);
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+header > .navbar > a {
+    /* background-color: rgb(77, 76, 76); */
+    /* justify-self: flex-end; */
     border-bottom: none;
     border-right: none;
 }
 
-header > a:hover {
-    background-color: rgb(77, 76, 76);
+header > .navbar > a:hover {
+    background-color: rgba(77, 76, 76, 0);
     border-bottom: none;
     border-right: none;
+    margin: 2px 0px 2px 20px;
+    border-width: 2px 0 0 2px;
 }
 
 header > .header-div {
@@ -125,16 +166,15 @@ header > .header-div {
     margin-top: 40px;
 }
 
-.logo-header{
+.logo-header {
     color: rgba(0, 0, 0, 0);
     margin: 0;
     text-decoration: none;
     border-bottom: none;
     border-right: none;
-    background-color: rgba(250, 235, 215, 0);
 }
 
-.logo-header:hover{
+.logo-header:hover {
     color: rgba(0, 0, 0, 0);
     margin: 0;
     border-width: 0;
@@ -145,23 +185,24 @@ header > .header-div {
 }
 
 .logo {
-    display: inline;
     height: 55px;
     width: 55px;
     margin-right: 20px;
-    border-radius: 7px;
-    box-shadow: 10px 10px 10px rgba(0, 0.5, 0.5, 0.5);
+    border-radius: 5px;
+}
+
+.profile-pic-small {
+    height: 55px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px;
 }
 
 .header-registration > h1 {
     margin: 0 5px 0 0;
 }
 
-.welcome {
-    display: inline;
-    margin-bottom: 40px;
-}
-
+/* LOGIN & REGISTER */
 .reset-password {
     position: absolute;
     top: 100px;
@@ -169,23 +210,29 @@ header > .header-div {
     text-decoration: none;
     border-bottom: none;
     border-right: none;
-    background-color: antiquewhite;
 }
 
 .reset-password:hover {
-    margin: 0 2px 2px 50px;
+    margin: 0 0px 2px 50px;
     border-width: 2px 0 0 2px;
-    background-color: antiquewhite;
-    color: black;
+    background-color: #000000;
+}
+
+/* MAIN */
+
+.welcome {
+    display: inline;
+    margin-bottom: 40px;
 }
 
 #big-profile-pic {
     margin: 0px 20px 50px 20px;
     height: 300px;
     width: auto;
-    border-radius: 200px;
+    border-radius: 5px;
+    border: solid 3px #00000062;
     cursor: pointer;
-    box-shadow: 10px 10px 10px rgba(0, 0.5, 0.5, 0.5);
+    background-color: #00000062;
 }
 
 #other-profile-pic {
@@ -194,15 +241,6 @@ header > .header-div {
     width: auto;
     border-radius: 200px;
     cursor: auto;
-    box-shadow: 10px 10px 10px rgba(0, 0.5, 0.5, 0.5);
-}
-
-.profile-pic-small {
-    height: 60px;
-    border-radius: 60px;
-    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5);
-    cursor: pointer;
-    margin-left: 40px;
 }
 
 .uploader {
@@ -210,32 +248,39 @@ header > .header-div {
     text-align: center;
     position: absolute;
     top: 140px;
-    right: 15%;
-    background-color: rgb(201, 184, 161);
-    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5);
+    right: 10%;
+    background-color: white;
     border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 3px #00000062;
 }
 
 .uploader-input {
-    background-color: rgb(201, 184, 161);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
     color: transparent;
 }
+
 .uploader-input::-webkit-file-upload-button {
     visibility: hidden;
 }
 
 .uploader-input::before {
     content: "Select some files";
-    color: antiquewhite;
-    background: -webkit-linear-gradient(top, rgb(43, 33, 20), rgb(5, 4, 2));
+    color: black;
+    background: #00000062;
     border: 1px solid #999;
     border-radius: 7px;
-    margin-left: 55px;
-    padding: 5px 8px;
     cursor: pointer;
-    font-family: "Cookie", cursive;
+    font-family: "Lato", sans-serif;
     font-weight: 700;
-    font-size: 20pt;
+    font-size: 20px;
+    text-align: center;
 }
 
 .bio {
@@ -243,7 +288,6 @@ header > .header-div {
     column-rule: solid 1px rgb(77, 76, 76);
     padding: 10px 40px 10px 40px;
     background-color: rgb(201, 184, 161);
-    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5) inset;
     border-radius: 7px;
     font-family: "Lato", sans-serif;
     font-size: 20px;
@@ -261,10 +305,10 @@ header > .header-div {
     margin-top: 25px;
 }
 
-.error {
-    position: absolute;
-    right: 40%;
-    top: 30%;
+/* FIND PEOPLE */
+
+.search-people {
+    margin: 20px;
 }
 
 .relative {
@@ -279,7 +323,6 @@ header > .header-div {
     width: 300px;
     background-color: rgba(250, 235, 215, 0.9);
     border-radius: 7px;
-    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5);
     max-height: 500px;
     overflow: auto;
 }
@@ -292,7 +335,6 @@ header > .header-div {
     display: inline;
     height: 40px;
     border-radius: 40px;
-    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5);
 }
 
 .wannafriends {
@@ -321,7 +363,6 @@ header > .header-div {
     height: 25px;
     width: 700px;
     overflow: auto;
-    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5) inset;
 }
 
 .chat-container {
@@ -333,7 +374,6 @@ header > .header-div {
     font-size: 20px;
     background-color: rgb(77, 76, 76);
     border-radius: 7px;
-    box-shadow: 5px 5px 5px rgba(0, 0.5, 0.5, 0.5) inset;
     display: flex;
     flex-direction: column-reverse;
 }
@@ -369,26 +409,6 @@ header > .header-div {
         rgba(0, 0, 0, 0.75),
         rgba(0, 0, 0, 0)
     );
-}
-::-webkit-scrollbar {
-    width: 18px;
-    height: 18px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #faebd7;
-    border: 0.7px solid #000000;
-    border-radius: 19px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgb(0, 0, 0);
-}
-
-::-webkit-scrollbar-track {
-    background: #64625f;
-    border-radius: 9px;
-    box-shadow: inset 0px 0px 0px 0px #f0f0f0;
 }
 
 @media screen and (max-width: 900px) {
@@ -458,6 +478,6 @@ header > .header-div {
     }
 
     .profile-pic-small {
-        margin-left: 0;
+        margin-left: 0px;
     }
 }
