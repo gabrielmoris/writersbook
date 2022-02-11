@@ -52,7 +52,7 @@ input {
 
 a {
     color: black;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     text-decoration: none;
     border-bottom: solid black 2px;
     border-right: solid black 2px;
@@ -61,8 +61,6 @@ a {
 }
 
 a:hover {
-    /* margin: 0 2px 2px 20px;
-    border-width: 2px 0 0 2px; */
     background-color: black;
     color: white;
 }
@@ -73,7 +71,10 @@ a:active {
 }
 
 form {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
 }
 
 button {
@@ -87,8 +88,6 @@ button {
 }
 
 button:hover {
-    /* margin: 0 2px 2px 0;
-    border-width: 2px 0 0 2px; */
     background-color: black;
     color: white;
     cursor: pointer;
@@ -103,7 +102,6 @@ textarea {
     font-size: 20px;
     width: 400px;
     height: 300px;
-    /* background-color: rgb(201, 184, 161); */
     border-radius: 7px;
     font-family: "Lato", sans-serif;
     margin: 10px 0 0 0;
@@ -115,9 +113,12 @@ h2 {
 }
 
 .error {
+    width:100%;
     position: absolute;
-    right: 40%;
-    top: 30%;
+    text-align: center;
+    top: 2px;
+    right:1px;
+    font-size: 20px;
 }
 
 /* HEADER */

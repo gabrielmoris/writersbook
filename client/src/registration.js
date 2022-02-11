@@ -4,12 +4,14 @@ import useFormSubmit from "./hooks/useFormSubmit";
 
 export default function Registration() {
     const [userInput, handleChange] = useForm();
-    const [handleSubmit, error] = useFormSubmit("/register.json",userInput);
-    
+    const [handleSubmit, error] = useFormSubmit("/register.json", userInput);
+
     return (
         <>
             {error && (
-                <h2 style={{ color: "red" }}>{error}</h2>
+                <h2 className="error" style={{ color: "red" }}>
+                    {error}
+                </h2>
             )}
             <form>
                 <h1>Register:</h1>

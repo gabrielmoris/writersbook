@@ -4,11 +4,15 @@ import useFormSubmit from "./hooks/useFormSubmit";
 
 export default function Login() {
     const [userInput, handleChange] = useForm();
-    const [handleSubmit, error]= useFormSubmit("/login.json", userInput);
-    
+    const [handleSubmit, error] = useFormSubmit("/login.json", userInput);
+
     return (
         <>
-            {error && <h2 style={{ color: "red" }}>{error}</h2>}
+            {error && (
+                <h2 className="error" style={{ color: "red" }}>
+                    {error}
+                </h2>
+            )}
             <form>
                 <h1>Login:</h1>
                 <input
