@@ -9,6 +9,7 @@ export class ResetPassword extends Component {
         this.resetFirst = this.resetFirst.bind(this);
         this.resetSecond = this.resetSecond.bind(this);
     }
+
     renderStage() {
         if (this.state.stage === 1) {
             return (
