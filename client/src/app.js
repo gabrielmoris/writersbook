@@ -3,6 +3,7 @@ import ProfilePic from "./profilePic";
 import Uploader from "./uploaderComponent";
 import Profile from "./profile";
 import { FindPeople } from "./findpeople";
+import  Footer  from "./footer";
 import OtherProfile from "./otherProfile";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { FriendsAndWannabees } from "./friendsAndWannabees";
@@ -110,6 +111,7 @@ export default class App extends Component {
                             toggler={this.togglerUploader}
                         />
                     )}
+                    <Footer/>
                 </BrowserRouter>
             </>
         );

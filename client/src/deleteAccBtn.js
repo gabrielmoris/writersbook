@@ -49,7 +49,7 @@ export default function DeleteBtn() {
     return (
         <>
             {error && <h2 style={{ color: "red" }}>{error}</h2>}
-            <button onClick={deleteAc}>{buttonText}</button>
+            <a onClick={deleteAc}>{buttonText}</a>
             {error && (
                 <a href="/">
                     Go back
