@@ -44,15 +44,15 @@ export default function BioEditor({ bio, renderbio }) {
             {error && <h2 style={{ color: "red" }}>{error}</h2>}
             <h3 className="bio">{bio}</h3>
             {bioIsVisible && (
-                <>
-                    <form>
+                <div className="edit-bio-form-wrapper">
+                    <form className="form-edit-bio">
                         <textarea
                             onChange={handleChange}
                             defaultValue={bio}
                             name="textarea"
                         />
                     </form>
-                </>
+                </div>
             )}
             <button className="bio-btn" onClick={togglerBio}>
                 {(bioButton && "Cancel") || "Write your Bio"}
