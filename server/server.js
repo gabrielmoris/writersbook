@@ -20,7 +20,7 @@ const io = SocketIOServer(server, {
             null,
             req.headers.referer.startsWith("http://localhost:3000") ||
                 req.headers.referer.startsWith(
-                    "https://writersbook.herokuapp.com/"
+                    "https://writersbook-production.up.railway.app/"
                 )
         );
     },
@@ -305,7 +305,6 @@ app.post(`/api/delete`, (req, res) => {
 });
 
 app.post(`/api/delete-yes`, s3.delete, (req, res) => {
-    
     db.deleteMessagesById(req.session.userId)
         .then(() => {
             db.deleteFriendshipsById(req.session.userId);
