@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS friendships;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS password_reset;
 DROP TABLE IF EXISTS chat_messages;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
       id SERIAL PRIMARY KEY,
