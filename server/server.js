@@ -20,7 +20,7 @@ const io = SocketIOServer(server, {
             null,
             req.headers.referer.startsWith("http://localhost:3000") ||
                 req.headers.referer.startsWith(
-                    "https://writersbook-production.up.railway.app/"
+                    "https://writersbook.onrender.com/"
                 )
         );
     },
